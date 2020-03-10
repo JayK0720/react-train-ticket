@@ -1,0 +1,24 @@
+@mixin border-bottom-1px($color){
+    position:relative;
+    &:after{
+        content:"";
+        position:absolute;
+        display:block;
+        left:0;
+        right:0;
+        bottom:0;
+        border-bottom:1px solid $color;
+    }
+    @media screen and (min-device-pixel-ratio:2),(-webkit-min-device-pixel-ratio:2){
+        &:after{
+            transform:scaleY(.5);
+            -webkit-transform:scaleY(.5);
+        }
+    }
+    @media screen and (min-device-pixel-ratio:3),(-webkit-min-device-pixel-ratio:3){
+        &:after{
+            transform:scaleY(.33);
+            -wekbit-transform:scaleY(.33);
+        }
+    }
+}

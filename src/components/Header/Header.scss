@@ -1,0 +1,21 @@
+.header{
+    position:relative;
+    width:100%;
+    height:40px;
+    background-color:#00da83;
+    color:#fff;
+    text-align:center;
+    line-height:40px;
+    .icon-back{
+        position:absolute;
+        width:50px;
+        height:40px;
+        .iconfont{
+            font-size:24px;
+        }
+    }
+    .title{
+        text-align:center;
+        font-size:18px;
+    }
+}
