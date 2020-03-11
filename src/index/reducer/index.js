@@ -1,9 +1,8 @@
 import {
     SET_FROM,
     SET_TO,
-    SET_CITY_SELECTOR_VISIBLE,
-    SET_DATE_SELECTOR_VISIBLE,
-    TOGGLE_HIGH_SPEED,
+    SHOW_CITY_SELECTOR,
+    HIDE_CITY_SELECTOR
 } from '../actionTypes';
 
 function from(state = "北京",action){
@@ -24,4 +23,18 @@ function to(state = "上海",action){
             return state;
     }
 }
-export {from,to}
+
+function citySelector(state = false,action){
+    const {type} = action;
+    switch(type){
+        case SHOW_CITY_SELECTOR:
+            return true;
+        case HIDE_CITY_SELECTOR:
+            return false;
+        default:
+            return state;
+    }
+}
+
+
+export {from,to,citySelector}

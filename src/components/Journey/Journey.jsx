@@ -1,10 +1,10 @@
 import React from 'react';
 import './Journey.scss';
 import {connect} from 'react-redux';
-import {setFrom,setTo} from '../../index/actions';
+import {setFrom,setTo,showCitySelector} from '../../index/actions';
 
 function Journey(props){
-    const {from,to,setFrom,setTo} = props;
+    const {from,to,setFrom,setTo,showCitySelector} = props;
     // 点击切换出发站和终点站
     const handleExchangeStation = () => {
         setFrom(to);
@@ -12,7 +12,10 @@ function Journey(props){
     }
     return (
         <div className={"journey-wrapper"}>
-            <div className="journey-start">
+            <div
+                className="journey-start"
+                onClick={() => {showCitySelector(true)}}
+            >
                 <h3 className={"station"}>{from}</h3>
             </div>
             <div
@@ -21,7 +24,10 @@ function Journey(props){
             >
                 <i className="iconfont">&#xe667;</i>
             </div>
-            <div className="journey-end">
+            <div
+                className="journey-end"
+                onClick={() => showCitySelector(true)}
+            >
                 <h3 className={"station"}>{to}</h3>
             </div>
         </div>
@@ -35,6 +41,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
     setFrom,
-    setTo
+    setTo,
+    showCitySelector
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Journey);

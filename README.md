@@ -26,7 +26,35 @@ Greeting.propTypes = {
 ```
     处于性能方面考虑,propTypes仅在开发模式下进行检查
 
+# 动态设置ClassName
 
+    如果有一个固定的className,另一个className是动态计算的，不能这样写:
+```jsx harmony
+<div
+    className={"citySelector-wrapper"}
+    className={citySelectorVisible ? "hidden" : ""}
+>
+```
+    可以使用下面的写法：
+```jsx harmony
+// 使用数组的方法
+<div
+    className={[
+        'citySelector-wrapper',
+        citySelectorVisible ? "" : "hidden"].join(" ")
+    }
+>
+// 使用模板字符串 
+<div
+    className={`citySelector-wrapper ${citySelectorVisible ? "" : "hidden"} `}
+>
+
+// 引入第三方插件classnames
+className={classnames({
+    'citySelector-wrapper':true,
+    hidden:!citySelectorVisible
+})}
+```
 
 
 

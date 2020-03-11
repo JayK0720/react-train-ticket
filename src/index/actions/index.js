@@ -1,8 +1,8 @@
 import {
     SET_FROM,
     SET_TO,
-    SET_CITY_SELECTOR_VISIBLE,
-    SET_DATE_SELECTOR_VISIBLE,
+    SHOW_CITY_SELECTOR,
+    HIDE_CITY_SELECTOR,
     TOGGLE_HIGH_SPEED
 } from '../actionTypes';
 // 出发城市
@@ -19,20 +19,19 @@ function setTo(to){
         playload:to
     }
 }
-// 是否显示城市选择页面
-function setCitySelectorVisible(citySelectorVisible){
+// 显示城市选择页面
+function showCitySelector(){
     return {
-        type:SET_CITY_SELECTOR_VISIBLE,
-        playload:citySelectorVisible
+        type:SHOW_CITY_SELECTOR,
     }
 }
-// 是否显示日期显示页面
-function setDateSelectorVisible(dateSelectorVisible){
+// 隐藏城市选择页面
+function hideCitySelector(){
     return {
-        type:SET_DATE_SELECTOR_VISIBLE,
-        playload:dateSelectorVisible
+        type:HIDE_CITY_SELECTOR,
     }
 }
+
 
 // 切换是否选择高铁时,此时派发一个异步action,可以获取当前的highSpeed值,然后对其取反
 function toggleHighSpeed(){
@@ -44,7 +43,7 @@ function toggleHighSpeed(){
         })
     }
 }
-// 交换城市
+/*// 交换城市
 function exchangeFromTo(){
     return (dispatch,getState) => {
         const {from,to} = getState();
@@ -57,13 +56,12 @@ function exchangeFromTo(){
             playload:from
         })
     }
-}
+}*/
 
 export {
     setFrom,
     setTo,
-    setCitySelectorVisible,
-    setDateSelectorVisible,
     toggleHighSpeed,
-    exchangeFromTo
+    showCitySelector,
+    hideCitySelector
 };

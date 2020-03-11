@@ -3,14 +3,16 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger';
 import {
     from,
-    to
+    to,
+    citySelector
 }
 from '../reducer/index.js'
 
 const store =  createStore(
     combineReducers({
         from,
-        to
+        to,
+        citySelectorVisible:citySelector
     }),
     compose(
         applyMiddleware(

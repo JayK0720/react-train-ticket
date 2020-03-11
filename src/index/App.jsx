@@ -1,8 +1,8 @@
 import React,{useCallback} from 'react';
-import {connect} from 'react-redux';
-import {exchangeFromTo} from './actions'
 import Header from '../components/Header/Header'
 import Journey from '../components/Journey/Journey'
+import CitySelector from '../components/CitySelector/CitySelector'
+
 function App(props){
     const onBack = useCallback(() => {
         window.history.back();
@@ -14,6 +14,7 @@ function App(props){
                 onBack={onBack}
             />
             <Journey/>
+            <CitySelector/>
         </div>
     )
 }
