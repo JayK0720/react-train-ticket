@@ -2,7 +2,9 @@ import {
     SET_FROM,
     SET_TO,
     SHOW_CITY_SELECTOR,
-    HIDE_CITY_SELECTOR
+    HIDE_CITY_SELECTOR,
+    IS_LOADING_CITY_DATA,
+    SET_CITY_DATA
 } from '../actionTypes';
 
 function from(state = "北京",action){
@@ -36,5 +38,24 @@ function citySelector(state = false,action){
     }
 }
 
+function isLoadingCityData(state=false,action){
+    const {type,playload} = action;
+    switch(type){
+        case IS_LOADING_CITY_DATA:
+            return playload;
+        default:
+            return state;
+    }
+}
 
-export {from,to,citySelector}
+function cityData(state={},action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_CITY_DATA:
+            return playload;
+        default:
+            return state;
+    }
+}
+
+export {from,to,citySelector,isLoadingCityData,cityData}

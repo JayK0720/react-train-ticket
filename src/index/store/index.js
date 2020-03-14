@@ -4,7 +4,9 @@ import logger from 'redux-logger';
 import {
     from,
     to,
-    citySelector
+    citySelector,
+    isLoadingCityData,
+    cityData
 }
 from '../reducer/index.js'
 
@@ -12,7 +14,9 @@ const store =  createStore(
     combineReducers({
         from,
         to,
-        citySelectorVisible:citySelector
+        citySelectorVisible:citySelector,
+        isLoadingCityData,
+        cityData
     }),
     compose(
         applyMiddleware(

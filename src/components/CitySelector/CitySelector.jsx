@@ -1,14 +1,18 @@
-import React ,{useState} from 'react';
+import React ,{useState,useMemo,useEffect} from 'react';
 import './CitySelector.scss';
 import {connect} from 'react-redux';
 import classnames from 'classnames';
 import '../../common/css/iconfont.css';
 
-import {hideCitySelector} from '../../index/actions'
+import {hideCitySelector,fetchCityData} from '../../index/actions'
 function CitySelector(props){
-    const {citySelectorVisible,hideCitySelector} = props;
+    const {citySelectorVisible,hideCitySelector,cityData,fetchCityData,isLoadingCityData} = props;
     const [searchKey,setSearchKey] = useState("");
-    const key = searchKey.trim();
+    const key = useMemo( () => searchKey.trim() ,[searchKey]) ;
+    useEffect(() => {
+        if(!citySelectorVisible || isLoadingCityData) return;
+        fetchCityData();
+    },[citySelectorVisible])
     return (
         <div
             className={classnames({
@@ -43,18 +47,21 @@ function CitySelector(props){
                     </div>
                 </div>
             </div>
+            <div className="city-wrapper">
+
+            </div>
         </div>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        citySelectorVisible:state.citySelectorVisible
+        citySelectorVisible:state.citySelectorVisible,
+        cityData:state.cityData,
+        isLoadingCityData:state.isLoadingCityData,
     }
 }
 export default connect(
     mapStateToProps,
-    {
-        hideCitySelector
-    }
+    {hideCitySelector,fetchCityData}
 )(CitySelector);
