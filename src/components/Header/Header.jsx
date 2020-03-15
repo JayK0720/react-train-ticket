@@ -4,7 +4,6 @@ import '../../common/css/iconfont.css';
 import PropTypes from 'prop-types';
 export default function Header(props){
     const {title,onBack} = props;
-    console.log("header render");
     return (
         <div className="header">
             <div

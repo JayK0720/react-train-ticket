@@ -3,7 +3,8 @@ import React ,{
     useMemo,
     useEffect,
     memo,
-    useRef
+    useRef,
+    useCallback
 } from 'react';
 import './CitySelector.scss';
 import {connect} from 'react-redux';
@@ -32,8 +33,13 @@ CityItem.propTypes = {
 const CitySection = memo(function CitySection(props){
     const {cities,title,onSelect} = props;
     return(
-        <div className={'city-section'}>
-            <p className={"city-title"}>{title}</p>
+        <div
+            className={'city-section'}
+            data-cate={title}
+        >
+            <p
+                className={"city-title"}
+            >{title}</p>
             <ul className="city-list">
                 {
                     cities && cities.length > 0 && cities.map((city,index) => {
@@ -57,9 +63,15 @@ CitySection.propTypes = {
 }
 
 const CityList = memo(function CityList(props){
+    const [fixedTitle,setFixedTitle] = useState("A");
     const {cityList,onSelect} = props;
+    const fixedTitleRef = useRef();
     return(
-        <div className={"city-list"}>
+        <div className={"allCity-list"}>
+            <li
+                className={"fixed-title"}
+                ref={fixedTitleRef}
+            >{fixedTitle}</li>
             { cityList.length > 0 && cityList.map((cityList) =>
                 <CitySection
                     cities={cityList.cities}
@@ -109,11 +121,11 @@ const CityListHistory = memo(function CityListHistory(props){
 });
 
 const AlphaIndex = memo(function AlphaIndex(props){
-    const {title,onSelectIndex} = props;
+    const {title,onClick} = props;
     return (
         <li
             className={"city-index"}
-            onClick={ () => onSelectIndex(title) }
+            onClick={ () => onClick(title) }
         >{title}</li>
     )
 });
@@ -151,11 +163,6 @@ const CitySelector = memo(function CitySelector(props){
         }else{
             scrollRef.current.refresh();
         }
-/*        const scroll = new BScroll(cityWrapperRef.current,{
-            scrollY:true,
-            click:true,
-            probeType:3
-        })*/
     },[cityData]);
     // 设置搜索城市的输入框的值
     const handleSetSearchKey = (event) =>{
@@ -173,9 +180,13 @@ const CitySelector = memo(function CitySelector(props){
             JSON.stringify(searchHistory)
         )
     },[searchHistory]);
-    const onSelectIndex = (index) => {
+    const onSelectIndex = useCallback((index) => {
         console.log(index);
-    }
+        const ele = document.querySelector(`[data-cate=${index}]`);
+        if(scrollRef.current){
+            scrollRef.current.scrollToElement(ele,150);
+        }
+    },[]);
     return (
         <div
             className={classnames({
@@ -231,7 +242,7 @@ const CitySelector = memo(function CitySelector(props){
                         <AlphaIndex
                             key={title}
                             title={title}
-                            onSelectIndex={onSelectIndex}
+                            onClick={onSelectIndex}
                         />
                     )}
                 </ul>

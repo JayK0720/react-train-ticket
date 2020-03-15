@@ -73,6 +73,16 @@
         background-color:#fff;
         overflow:auto;
     }
+    .allCity-list{
+        position:relative;
+        .fixed-title{
+            padding-left:10px;
+            position:absolute;
+            z-index:20;
+            @extend .city-title;
+            line-height:30px;
+        }
+    }
     .city-section{
         .city-list{
             padding-left:15px;
