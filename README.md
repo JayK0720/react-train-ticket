@@ -56,7 +56,28 @@ className={classnames({
 })}
 ```
 
+## 城市列表获取索引值
 
+    在城市列表里,使用了 better-scroll 滚动插件,但在使用过程中,点击右侧字母索引 获取当前点击的 字母值时,
+    回出现多次点击的现象。
+    每次重新进入城市列表页面 点击字母索引时,便会 出现 比上次点击 多输出1次的 情况
+    
+    那是因为每次进入 CitySelector都初始化了一个 BScroll 实例。
+    
+    
+    通过使用 useRef Hook 可以解决这个问题
+```jsx harmony
+const scrollRef = useRef();
+if(!scrollRef.current) {
+    scrollRef.current = new BScroll(cityWrapperRef.current,{
+        scrollY:true,
+        click:true,
+        probeType:3
+    })
+}else{
+    scrollRef.current.refresh();
+}
+```
 
 
 

@@ -6,7 +6,8 @@ import {
     to,
     citySelector,
     isLoadingCityData,
-    cityData
+    cityData,
+    cityDirection,
 }
 from '../reducer/index.js'
 
@@ -16,7 +17,8 @@ const store =  createStore(
         to,
         citySelectorVisible:citySelector,
         isLoadingCityData,
-        cityData
+        cityData,
+        direction:cityDirection,
     }),
     compose(
         applyMiddleware(

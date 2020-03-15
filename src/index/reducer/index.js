@@ -4,7 +4,8 @@ import {
     SHOW_CITY_SELECTOR,
     HIDE_CITY_SELECTOR,
     IS_LOADING_CITY_DATA,
-    SET_CITY_DATA
+    SET_CITY_DATA,
+    SET_STATION_DIRECTION
 } from '../actionTypes';
 
 function from(state = "北京",action){
@@ -26,7 +27,7 @@ function to(state = "上海",action){
     }
 }
 
-function citySelector(state = false,action){
+function citySelector(state = true,action){
     const {type} = action;
     switch(type){
         case SHOW_CITY_SELECTOR:
@@ -58,4 +59,14 @@ function cityData(state={},action){
     }
 }
 
-export {from,to,citySelector,isLoadingCityData,cityData}
+function cityDirection(state='left',action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_STATION_DIRECTION:
+            return playload;
+        default:
+            return state;
+    }
+}
+
+export {from,to,citySelector,isLoadingCityData,cityData,cityDirection}

@@ -22,3 +22,9 @@
         }
     }
 }
+
+@mixin border-none{
+    &:before,&:after{
+        border:none;
+    }
+}
