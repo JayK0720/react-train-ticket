@@ -72,6 +72,9 @@
         z-index:10;
         background-color:#fff;
         overflow:auto;
+        &.cityList-hidden{
+            display:none;
+        }
     }
     .allCity-list{
         position:relative;

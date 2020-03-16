@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import {hideCitySelector,fetchCityData,setSelectedCity} from '../../index/actions';
 import Loading from '../Loading/Loading';
 import BScroll from 'better-scroll';
+import Suggest from '../Suggest/Suggest'
 const SEARCH_HISTORY_CACHE = "SEARCH_HISTORY_CACHE";
 
 const CityItem = memo(function CityItem(props){
@@ -181,7 +182,6 @@ const CitySelector = memo(function CitySelector(props){
         )
     },[searchHistory]);
     const onSelectIndex = useCallback((index) => {
-        console.log(index);
         const ele = document.querySelector(`[data-cate=${index}]`);
         if(scrollRef.current){
             scrollRef.current.scrollToElement(ele,150);
@@ -221,7 +221,10 @@ const CitySelector = memo(function CitySelector(props){
                     </div>
                 </div>
             </div>
-            <div className="cityList-wrapper" ref={cityWrapperRef}>
+            <div
+                ref={cityWrapperRef}
+                className={['cityList-wrapper',key.length > 0 ? "cityList-hidden": ""].join(" ")}
+            >
                 <section>
                     <CityListHistory
                         searchHistory={searchHistory}
@@ -246,6 +249,13 @@ const CitySelector = memo(function CitySelector(props){
                         />
                     )}
                 </ul>
+            </div>
+            <div
+                className={['suggest-wrapper', key.length > 0 ? '' : 'suggest-hidden'].join(" ")}
+            >
+                <Suggest
+                    searchKey={key}
+                />
             </div>
         </div>
     )
