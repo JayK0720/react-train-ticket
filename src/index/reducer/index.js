@@ -27,7 +27,7 @@ function to(state = "上海",action){
     }
 }
 
-function citySelector(state = true,action){
+function citySelector(state = false,action){
     const {type} = action;
     switch(type){
         case SHOW_CITY_SELECTOR:

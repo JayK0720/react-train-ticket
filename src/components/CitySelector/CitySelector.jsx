@@ -22,7 +22,7 @@ const CityItem = memo(function CityItem(props){
     return (
         <li
             className={"city-item"}
-            onClick={onSelect}
+            onClick={() => {onSelect(name)}}
         >{name}</li>
     )
 });
@@ -30,33 +30,38 @@ CityItem.propTypes = {
     name:PropTypes.string,
     onSelect:PropTypes.func
 }
+class CitySection extends React.PureComponent {
+    constructor(props){
+        super(props);
+    }
+    render(){
+        const {cities,title,onSelect} = this.props;
+        return (
+            <div
+                className={'city-section'}
+                data-cate={title}
+            >
+                <p
+                    className={"city-title"}
+                >{title}</p>
+                <ul className="city-list">
+                    {
+                        cities && cities.length > 0 && cities.map((city,index) => {
+                            return (
+                                <CityItem
+                                    key={index}
+                                    name={city.name}
+                                    onSelect={() => onSelect(city.name)}
+                                />
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+    }
+}
 
-const CitySection = memo(function CitySection(props){
-    const {cities,title,onSelect} = props;
-    return(
-        <div
-            className={'city-section'}
-            data-cate={title}
-        >
-            <p
-                className={"city-title"}
-            >{title}</p>
-            <ul className="city-list">
-                {
-                    cities && cities.length > 0 && cities.map((city,index) => {
-                        return (
-                            <CityItem
-                                key={index}
-                                name={city.name}
-                                onSelect={() => onSelect(city.name)}
-                            />
-                        )
-                    })
-                }
-            </ul>
-        </div>
-    )
-});
 CitySection.propTypes = {
     onSelect:PropTypes.func,
     title:PropTypes.string,
@@ -67,6 +72,7 @@ const CityList = memo(function CityList(props){
     const [fixedTitle,setFixedTitle] = useState("A");
     const {cityList,onSelect} = props;
     const fixedTitleRef = useRef();
+
     return(
         <div className={"allCity-list"}>
             <li
@@ -90,7 +96,7 @@ CityList.propTypes = {
 }
 
 const HotCityList = memo(function HotCityList(props){
-    const {hotCities} = props;
+    const {hotCities,onSelect} = props;
     return (
         <div className={"hotCity-wrapper"}>
             <p className="hotCity-title">热门站点</p>
@@ -100,6 +106,7 @@ const HotCityList = memo(function HotCityList(props){
                         <CityItem
                             name={hotCity.name}
                             key={index}
+                            onSelect={onSelect}
                         />
                     )
                 }
@@ -165,6 +172,23 @@ const CitySelector = memo(function CitySelector(props){
             scrollRef.current.refresh();
         }
     },[cityData]);
+
+    // 监听页面的滚动事件,实时获取当前滚动的位置 在第几个 分类里
+/*    useEffect(() => {
+        scrollRef.current.on('scroll',({y}) => {
+            if(y > 0) return;
+            setScrollY( Math.abs(y) );
+        })
+        for(let i = 0; i < listHeight.length - 1; i++){
+            let h1 = listHeight[i];
+            let h2 = listHeight[i+1];
+            if( scrollY >= h1 && scrollY < h2 ){
+                setCurrentIndex(i);
+            }
+        }
+        console.log(currentIndex);
+    },[scrollY,cityData]);*/
+
     // 设置搜索城市的输入框的值
     const handleSetSearchKey = (event) =>{
         setSearchKey(event.target.value);
@@ -194,6 +218,7 @@ const CitySelector = memo(function CitySelector(props){
                 hidden:!citySelectorVisible
             })}
         >
+            {/*顶部搜索栏*/}
             <div className="citySelector-top">
                 <div
                     className="icon-back"
@@ -225,19 +250,21 @@ const CitySelector = memo(function CitySelector(props){
                 ref={cityWrapperRef}
                 className={['cityList-wrapper',key.length > 0 ? "cityList-hidden": ""].join(" ")}
             >
-                <section>
+                <section className={'scroll-content'}>
                     <CityListHistory
                         searchHistory={searchHistory}
                     />
+                    {/*热门城市列表*/}
                     <HotCityList
                         hotCities={cityData.hotCities}
+                        onSelect={onSelect}
                     />
                     {cityData.cityList && cityData.cityList.length > 0
-                            ? <CityList
-                                cityList={cityData.cityList}
-                                onSelect={onSelect}
-                            />
-                            : <Loading/>
+                        ? <CityList
+                            cityList={cityData.cityList}
+                            onSelect={onSelect}
+                        />
+                        : <Loading/>
                     }
                 </section>
                 <ul className="cityIndex-list">

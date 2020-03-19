@@ -10,13 +10,17 @@
         width:100%;
         height:100%;
     }
-    .suggest-list{
-        padding-left:15px;
-    }
     .suggest-item{
+        padding-left:15px;
         height:38px;
         line-height:38px;
         font-size:14px;
         @include border-bottom-1px(#dcdcdc);
     }
+}
+.no-result-wrapper{
+    text-align:center;
+    line-height:80px;
+    color:#333;
+    font-size:14px;
 }

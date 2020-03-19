@@ -20,7 +20,7 @@
         display:flex;
         height:46px;
         align-items:center;
-        background-color:#00da81;
+        background-color:#3a9afb;
         .search-box{
             position:relative;
             min-width:100px;
@@ -111,6 +111,7 @@
     .hotCity-wrapper{
         padding-left:15px;
         padding-right:45px;
+        @include clear-fix();
         .hotCity-title{
             @extend .city-title;
         }
@@ -140,11 +141,12 @@
         position:absolute;
         width:30px;
         right:0;
-        bottom:20px;
+        top:50%;
+        transform:translateY(-50%);
         text-align:center;
         z-index:100;
         .city-index{
-            color:#82dd98;
+            color:#3a9afb;
             font-size:12px;
             line-height:20px;
         }

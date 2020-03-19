@@ -28,3 +28,11 @@
         border:none;
     }
 }
+
+@mixin clear-fix{
+    &:after{
+        content:"";
+        display:inline-block;
+        clear:both;
+    }
+}

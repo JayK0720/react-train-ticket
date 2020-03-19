@@ -1,6 +1,5 @@
 @import '../../common/css/mixin.scss';
 .journey-wrapper{
-    padding:0 16px;
     display:flex;
     height:60px;
     justify-content:space-between;
@@ -27,10 +26,10 @@
         height:42px;
         line-height:42px;
         text-align:center;
-        border:1px solid #00da83;
+        border:1px solid #3a9afb;
         border-radius:50%;
         .iconfont{
-            color:#00da83;
+            color:#3a9afb;
             font-size:32px;
         }
     }

@@ -1,0 +1,20 @@
+@import '../../common/css/mixin.scss';
+.depart-wrapper{
+    height:55px;
+    line-height:55px;
+    @include border-bottom-1px(#e1e1e1);
+    .depart-date{
+        color:#969696;
+        font-size:14px;
+    }
+    .date-text{
+        padding:0 15px;
+        vertical-align:top;
+        color:#232323;
+        font-size:18px;
+    }
+    .week-text{
+        color:#818181;
+        font-size:14px;
+    }
+}

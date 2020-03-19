@@ -2,6 +2,7 @@ import React ,{useState,useEffect,useRef,memo} from 'react';
 import './Suggest.scss';
 import {connect} from 'react-redux';
 import {setSelectedCity} from '../../index/actions';
+import PropTypes from 'prop-types';
 
 const SuggestItem = memo(function SuggestItem(props){
     const {name,setSelectedCity} = props;
@@ -12,7 +13,17 @@ const SuggestItem = memo(function SuggestItem(props){
         >{name}</li>
     )
 })
-
+SuggestItem.propType = {
+    name:PropTypes.string.isRequired,
+    setSelectedCity:PropTypes.func.isRequired
+}
+function NoResult(){
+    return (
+        <div className={'no-result-wrapper'}>
+            <p className="no-result-text">无法查询到车站</p>
+        </div>
+    )
+}
 function Suggest(props){
     const {searchKey,setSelectedCity} = props;
     const [result,setResult] = useState([]);
@@ -34,22 +45,26 @@ function Suggest(props){
     return(
         <div className={'suggestList-wrapper'}>
             <ul className={"suggest-list"}>
-            {
-                result.length > 0 && result.map((suggest,index) =>
+            {result && result.length > 0
+                ? result.map((suggest,index) =>
                     <SuggestItem
                         name={suggest}
                         key={index}
                         setSelectedCity={setSelectedCity}
-                    />
-                )
+                    />)
+                :<NoResult/>
             }
             </ul>
         </div>
     )
 }
-Suggest = connect(
+Suggest.propTypes = {
+    searchKey:PropTypes.string.isRequired,
+    setSelectedCity:PropTypes.func.isRequired
+}
+
+export default connect(
     null,
     {setSelectedCity}
 )(Suggest)
 
-export default Suggest;
