@@ -1,18 +1,17 @@
-import React,{useCallback} from 'react';
+import React from 'react';
 import Header from '../components/Header/Header'
 import Journey from '../components/Journey/Journey'
 import CitySelector from '../components/CitySelector/CitySelector'
 import DepartDate from '../components/DepartDate/DepartDate';
+import DateSelector from '../components/DateSelector/DateSelector';
 import './App.scss';
+
 function App(){
-    const onBack = useCallback(() => {
-        window.history.back();
-    },[]);
     return (
         <div className={'ticket-app'}>
             <Header
                 title={"火车票"}
-                onBack={onBack}
+                show={false}
             />
             <div className="top-bg">
                 <img
@@ -25,6 +24,7 @@ function App(){
                 <DepartDate/>
             </div>
             <CitySelector/>
+            <DateSelector/>
         </div>
     )
 }

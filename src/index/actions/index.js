@@ -8,6 +8,9 @@ import {
     SET_CITY_DATA,
     CITY_DATA_CACHE,
     SET_STATION_DIRECTION,
+    SHOW_DATE_SELECTOR,
+    HIDE_DATE_SELECTOR,
+    SET_DEPART_DATE
 } from '../actionTypes';
 // 出发城市
 function setFrom(from){
@@ -120,6 +123,25 @@ function setSelectedCity(city){
         }
     }
 }
+// 显示日期选择器
+function showDateSelector(){
+    return {
+        type:SHOW_DATE_SELECTOR
+    }
+}
+// 隐藏日期选择器
+function hideDateSelector(){
+    return {
+        type:HIDE_DATE_SELECTOR
+    }
+}
+// 设置出发日期
+function setDepartDate(date){
+    return {
+        type:SET_DEPART_DATE,
+        playload:date
+    }
+}
 
 export {
     setFrom,
@@ -129,5 +151,8 @@ export {
     hideCitySelector,
     fetchCityData,
     setStationDirection,
-    setSelectedCity
+    setSelectedCity,
+    showDateSelector,
+    hideDateSelector,
+    setDepartDate
 };

@@ -1,0 +1,19 @@
+.date-selector-wrapper{
+    position:fixed;
+    width:100%;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index:100;
+    &.hidden{
+        display:none;
+    }
+    .date-selector-tables{
+        position:absolute;
+        top:40px;
+        bottom:0;
+        width:100%;
+        left:0;
+        background-color:#ffffff;
+    }
+}

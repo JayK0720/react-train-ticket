@@ -31,9 +31,6 @@ CityItem.propTypes = {
     onSelect:PropTypes.func
 }
 class CitySection extends React.PureComponent {
-    constructor(props){
-        super(props);
-    }
     render(){
         const {cities,title,onSelect} = this.props;
         return (
@@ -69,16 +66,14 @@ CitySection.propTypes = {
 }
 
 const CityList = memo(function CityList(props){
-    const [fixedTitle,setFixedTitle] = useState("A");
     const {cityList,onSelect} = props;
     const fixedTitleRef = useRef();
-
     return(
         <div className={"allCity-list"}>
             <li
                 className={"fixed-title"}
                 ref={fixedTitleRef}
-            >{fixedTitle}</li>
+            >{"A"}</li>
             { cityList.length > 0 && cityList.map((cityList) =>
                 <CitySection
                     cities={cityList.cities}
@@ -282,6 +277,7 @@ const CitySelector = memo(function CitySelector(props){
             >
                 <Suggest
                     searchKey={key}
+                    setSearchKey={setSearchKey}
                 />
             </div>
         </div>

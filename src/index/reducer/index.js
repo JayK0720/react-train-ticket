@@ -5,7 +5,10 @@ import {
     HIDE_CITY_SELECTOR,
     IS_LOADING_CITY_DATA,
     SET_CITY_DATA,
-    SET_STATION_DIRECTION
+    SET_STATION_DIRECTION,
+    HIDE_DATE_SELECTOR,
+    SHOW_DATE_SELECTOR,
+    SET_DEPART_DATE
 } from '../actionTypes';
 
 function from(state = "北京",action){
@@ -69,4 +72,27 @@ function cityDirection(state='left',action){
     }
 }
 
-export {from,to,citySelector,isLoadingCityData,cityData,cityDirection}
+function dateSelector(state=false,action){
+    const {type} = action;
+    switch(type){
+        case SHOW_DATE_SELECTOR:
+            return true;
+        case HIDE_DATE_SELECTOR:
+            return false;
+        default:
+            return state;
+    }
+}
+// 出发日期reducer, 默认为当前的时间戳
+function departDate(state= Date.now(),action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_DEPART_DATE:
+            return playload;
+        default:
+            return state;
+    }
+}
+
+
+export {from,to,citySelector,isLoadingCityData,cityData,cityDirection,dateSelector,departDate}

@@ -5,11 +5,16 @@ import {setSelectedCity} from '../../index/actions';
 import PropTypes from 'prop-types';
 
 const SuggestItem = memo(function SuggestItem(props){
-    const {name,setSelectedCity} = props;
+    const {name,setSelectedCity,setSearchKey} = props;
     return (
         <li
             className={"suggest-item"}
-            onClick={() => {setSelectedCity(name)}}
+            onClick={() => {
+                // 设置好起点和终点城市之后 清除输入框的内容
+                    setSelectedCity(name);
+                    setSearchKey("");
+                }
+            }
         >{name}</li>
     )
 })
@@ -25,7 +30,7 @@ function NoResult(){
     )
 }
 function Suggest(props){
-    const {searchKey,setSelectedCity} = props;
+    const {searchKey,setSelectedCity,setSearchKey} = props;
     const [result,setResult] = useState([]);
     const timer = useRef();
     useEffect(() => {
@@ -35,7 +40,7 @@ function Suggest(props){
                 .then(response => response.json())
                 .then(data => {
                     const {result} = data;
-                    setResult(result)
+                    setResult(result);
                 });
         },300);
         return () => {
@@ -45,15 +50,16 @@ function Suggest(props){
     return(
         <div className={'suggestList-wrapper'}>
             <ul className={"suggest-list"}>
-            {result && result.length > 0
-                ? result.map((suggest,index) =>
-                    <SuggestItem
-                        name={suggest}
-                        key={index}
-                        setSelectedCity={setSelectedCity}
-                    />)
-                :<NoResult/>
-            }
+                {result && result.length > 0
+                    ? result.map((suggest,index) =>
+                        <SuggestItem
+                            name={suggest}
+                            key={index}
+                            setSelectedCity={setSelectedCity}
+                            setSearchKey={setSearchKey}
+                        />)
+                    :<NoResult/>
+                }
             </ul>
         </div>
     )

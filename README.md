@@ -80,7 +80,54 @@ if(!scrollRef.current) {
 }
 ```
 
+# 获取时间戳
 
+```js
+// 获取当前的时间戳
+var date = new Date();
+date.getTime();
+
+
+// 获取今天的时间戳
+var date = new Date();
+date.setHours(0);
+date.setMinutes(0);
+date.setSeconds(0);
+date.setMillionSeconds(0);
+date.getTime();
+```
+
+# 格式化时间
+    
+    通过传入 需要格式化的时间格式 yyyy-MM-dd hh-mm 转换出需要的时间
+```js
+// date为日期对象,fmt为转换的时间格式
+function formatDate(date,fmt){
+    // 如果检测到字符串包含y ，则将y替换为年份
+    if((/y+/).test(fmt)){
+                                    // 获取的时间是数字,拼接为字符串      如果传入的格式为yy-MM-dd,则只截取年份的后两位
+        fmt = fmt.replace( RegExp.$1, (date.getFullYear()+"").substring(4 - RegExp.$1.length) );
+    }
+    const obj = {
+        'M+':date.getMonth() + 1,
+        'd+':date.getDate()
+    }
+    for(let key in obj){
+        if( new RegExp(`(${key})`).test(fmt)){
+            let str = obj[key]+"";
+                        // 月份和日期的字符串长度为1时，直接返回对应的日期就可以
+                        // 长度不为1时，则返回的日期为3 则返回03
+            fmt = fmt.replace( RegExp.$1, RegExp.$1.length === 1 ? str : paddingLeftZero(str) );
+        }
+    }
+    return fmt;
+}
+
+// 月份和日期为单数时前面是否补0,如果传入格式为 yyyy-MM-dd 则需要补0
+function paddingLeftZero(str){
+    return ("00"+str).substring( str.length );
+}
+```
 
 
 
