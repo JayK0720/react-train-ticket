@@ -128,7 +128,7 @@ function paddingLeftZero(str){
     return ("00"+str).substring( str.length );
 }
 ```
-
+![formatDate](https://github.com/JayK0720/react-train-ticket/blob/master/bug-imgs/format.png)
 
 
 
