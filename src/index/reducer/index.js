@@ -72,7 +72,7 @@ function cityDirection(state='left',action){
     }
 }
 
-function dateSelector(state=false,action){
+function dateSelector(state=true,action){
     const {type} = action;
     switch(type){
         case SHOW_DATE_SELECTOR:
