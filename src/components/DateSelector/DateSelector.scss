@@ -9,13 +9,14 @@
     &.hidden{
         display:none;
     }
-    .date-selector-tables{
+    .calendar-wrapper{
         position:absolute;
         top:70px;
         bottom:0;
         width:100%;
         left:0;
         background-color:#ffffff;
+        overflow:auto;
     }
     .top-week{
         width:100%;
@@ -43,9 +44,21 @@
         width:100%;
         .calendar-td{
             text-align:center;
-            height:36px;
+            height:50px;
             vertical-align:middle;
             color:#333333;
+            &.disabled{
+                color:#d8d8d8;
+                &.weekend{
+                    color:#fedddf;
+                }
+            }
+            &.weekend{
+                color:#fa5561;
+            }
+            &.today{
+                color:#3b99fc;
+            }
         }
     }
 }
