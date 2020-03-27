@@ -59,6 +59,11 @@
             &.today{
                 color:#3b99fc;
             }
+            &.active{
+                background-color:#61aaf5;
+                color:#fff;
+                border-radius:5px;
+            }
         }
     }
 }

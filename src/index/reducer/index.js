@@ -10,7 +10,6 @@ import {
     SHOW_DATE_SELECTOR,
     SET_DEPART_DATE
 } from '../actionTypes';
-
 function from(state = "北京",action){
     const {type,playload} = action;
     switch(type){
@@ -72,7 +71,7 @@ function cityDirection(state='left',action){
     }
 }
 
-function dateSelector(state=true,action){
+function dateSelector(state= false,action){
     const {type} = action;
     switch(type){
         case SHOW_DATE_SELECTOR:
