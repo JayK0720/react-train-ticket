@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import './DateSelector.scss';
-import React,{useCallback} from 'react'
+import React,{useCallback,useRef,useEffect} from 'react'
 import Header from '../Header/Header'
 import {connect} from 'react-redux';
 import {hideDateSelector,setDepartDate} from '../../index/actions';
 import dateUtil from '../../common/js/date';
 import classnames from 'classnames';
+import BScroll from 'better-scroll';
 
 function Day(props){
     const {day,setDepartDate,hideDateSelector,departDate} = props;
@@ -138,6 +139,19 @@ Month.propTypes = {
     startingMonth:PropTypes.number.isRequired
 }
 function DateSelector (props){
+    const calendarRef = useRef();
+    const scrollRef = useRef;
+    useEffect(() => {
+        if(!scrollRef.current){
+            scrollRef.current = new BScroll(calendarRef.current,{
+                click:true,
+                probeType:3,
+                scrollY:true
+            });
+        }else{
+            scrollRef.current.refresh();
+        }
+    })
     const week = ['日','一','二','三','四','五','六'];
     const {dateSelectorVisible,hideDateSelector} = props;
     const onBack = useCallback(() => {
@@ -152,7 +166,6 @@ function DateSelector (props){
     const sequenceMonth = [date.getTime()];
     date.setMonth( date.getMonth() + 1 );
     sequenceMonth.push( date.getTime() );
-
     return (
         <div
             className={classnames(
@@ -170,7 +183,7 @@ function DateSelector (props){
                     <li className="week-item" key={index}>{week}</li>
                 )}
             </ul>
-            <div className="calendar-wrapper">
+            <div className="calendar-wrapper" ref={calendarRef}>
                 <div className="date-selector-tables">
                     {sequenceMonth.length > 0 && sequenceMonth.map(((month,index) =>
                         <Month

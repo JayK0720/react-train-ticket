@@ -37,7 +37,7 @@
     .calendar-title{
         padding:20px 0;
         text-align:center;
-        font-size:18px;
+        font-size:16px;
         color:#4a4a4a;
     }
     .calendar-table{
@@ -47,6 +47,7 @@
             height:50px;
             vertical-align:middle;
             color:#333333;
+            font-size:14px;
             &.disabled{
                 color:#d8d8d8;
                 &.weekend{
