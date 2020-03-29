@@ -1,7 +1,7 @@
 import React ,{useState,useEffect,useRef,memo} from 'react';
 import './Suggest.scss';
 import {connect} from 'react-redux';
-import {setSelectedCity} from '../../index/actions';
+import {setSelectedCity} from '../../actions';
 import PropTypes from 'prop-types';
 
 const SuggestItem = memo(function SuggestItem(props){

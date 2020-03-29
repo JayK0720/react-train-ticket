@@ -1,7 +1,7 @@
 import React from 'react';
 import './Journey.scss';
 import {connect} from 'react-redux';
-import {setFrom,setTo,showCitySelector,setStationDirection} from '../../index/actions';
+import {setFrom,setTo,showCitySelector,setStationDirection} from '../../actions';
 
 function Journey(props){
     const {from,to,setFrom,setTo,showCitySelector,setStationDirection} = props;

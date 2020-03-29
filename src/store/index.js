@@ -9,7 +9,8 @@ import {
     cityData,
     cityDirection,
     dateSelector,
-    departDate
+    departDate,
+    highSpeed
 }
 from '../reducer/index.js'
 
@@ -22,7 +23,8 @@ const store =  createStore(
         cityData,
         direction:cityDirection,
         dateSelectorVisible:dateSelector,
-        departDate
+        departDate,
+        highSpeed
     }),
     compose(
         applyMiddleware(

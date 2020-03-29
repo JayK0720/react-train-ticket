@@ -10,37 +10,39 @@ import {
     SET_STATION_DIRECTION,
     SHOW_DATE_SELECTOR,
     HIDE_DATE_SELECTOR,
-    SET_DEPART_DATE
+    SET_DEPART_DATE,
+    SET_NEXT_DAY,
+    SET_PREV_DAY
 } from '../actionTypes';
 // 出发城市
-function setFrom(from){
+export function setFrom(from){
     return {
         type:SET_FROM,
         playload:from
     }
 }
 // 终点城市
-function setTo(to){
+export function setTo(to){
     return {
         type:SET_TO,
         playload:to
     }
 }
 // 显示城市选择页面
-function showCitySelector(){
+export function showCitySelector(){
     return {
         type:SHOW_CITY_SELECTOR,
     }
 }
 // 隐藏城市选择页面
-function hideCitySelector(){
+export function hideCitySelector(){
     return {
         type:HIDE_CITY_SELECTOR,
     }
 }
 
 // 切换是否选择高铁时,此时派发一个异步action,可以获取当前的highSpeed值,然后对其取反
-function toggleHighSpeed(){
+export function toggleHighSpeed(){
     return (dispatch,getState) => {
         const {highSpeed} = getState();
         return dispatch({
@@ -50,21 +52,21 @@ function toggleHighSpeed(){
     }
 }
 // 设置是否正在加载城市列表数据
-function setIsLoadingCityData(isLoadingCityData){
+export function setIsLoadingCityData(isLoadingCityData){
     return {
         type:IS_LOADING_CITY_DATA,
         playload:isLoadingCityData
     }
 }
 // 获取城市列表数据
-function setCityData(cities){
+export function setCityData(cities){
     return {
         type:SET_CITY_DATA,
         playload:cities
     }
 }
 // 异步获取城市列表数据
-function fetchCityData(){
+export function fetchCityData(){
     return (dispatch,getState) => {
         // isLoadingCityData 默认为false
         const {isLoadingCityData} = getState();
@@ -101,7 +103,7 @@ function fetchCityData(){
     }
 }
 // 设置当前选择的是起点出发城市 还是 终点城市
-function setStationDirection(direction){
+export function setStationDirection(direction){
     return {
         type : SET_STATION_DIRECTION,
         playload:direction
@@ -111,7 +113,7 @@ function setStationDirection(direction){
 * 设置当前城市列表中被选中的城市,当点击起点时,direction先设置为left,点击终点时,direction为right
 * 通过判断 direction的值,将选择的城市分别 设置为 from 和 to,选择城市后再关闭 城市选择列表
 * */
-function setSelectedCity(city){
+export function setSelectedCity(city){
     return (dispatch,getState) => {
         const {direction} = getState();
         if(direction === "left"){
@@ -124,35 +126,43 @@ function setSelectedCity(city){
     }
 }
 // 显示日期选择器
-function showDateSelector(){
+export function showDateSelector(){
     return {
         type:SHOW_DATE_SELECTOR
     }
 }
 // 隐藏日期选择器
-function hideDateSelector(){
+export function hideDateSelector(){
     return {
         type:HIDE_DATE_SELECTOR
     }
 }
 // 设置出发日期
-function setDepartDate(date){
+export function setDepartDate(date){
     return {
         type:SET_DEPART_DATE,
         playload:date
     }
 }
 
-export {
-    setFrom,
-    setTo,
-    toggleHighSpeed,
-    showCitySelector,
-    hideCitySelector,
-    fetchCityData,
-    setStationDirection,
-    setSelectedCity,
-    showDateSelector,
-    hideDateSelector,
-    setDepartDate
-};
+// 设置出发日期为当前日期对下一天
+export function setNextDay(){
+    return (dispatch,getState) => {
+        const {departDate} = getState();
+        dispatch({
+            type:SET_DEPART_DATE,
+            playload:departDate + 86400 * 1000
+        })
+    }
+}
+// 设置出发日期为当前日期对前一天
+export function setPrevDay(){
+    return (dispatch,getState) => {
+        const {departDate} = getState();
+        dispatch({
+            type:SET_DEPART_DATE,
+            playload:departDate - 86400 * 1000
+        })
+    }
+}
+

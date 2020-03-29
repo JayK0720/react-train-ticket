@@ -9,7 +9,7 @@ export default function Header(props){
             {/*通用组件,默认不显示左侧的返回按钮,接受一个函数,当点击时执行不同的操作*/}
             <div
                 className={['icon-back', show ? "" : "hidden" ].join(" ")}
-                onClick={onBack}
+                onClick={() => onBack()}
             >
                 <i className="iconfont">&#xe64e;</i>
             </div>
@@ -19,8 +19,8 @@ export default function Header(props){
 }
 Header.propTypes = {
     title:PropTypes.string.isRequired,
-    onBack:PropTypes.func,
-    show:PropTypes.bool
+    show:PropTypes.bool,
+    onBack:PropTypes.func
 }
 
 

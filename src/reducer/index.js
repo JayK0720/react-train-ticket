@@ -8,8 +8,11 @@ import {
     SET_STATION_DIRECTION,
     HIDE_DATE_SELECTOR,
     SHOW_DATE_SELECTOR,
-    SET_DEPART_DATE
+    SET_DEPART_DATE,
+    TOGGLE_HIGH_SPEED
 } from '../actionTypes';
+import dateUtil from '../common/js/date';
+
 function from(state = "北京",action){
     const {type,playload} = action;
     switch(type){
@@ -61,6 +64,8 @@ function cityData(state={},action){
     }
 }
 
+
+
 function cityDirection(state='left',action){
     const {type,playload} = action;
     switch(type){
@@ -83,7 +88,8 @@ function dateSelector(state= false,action){
     }
 }
 // 出发日期reducer, 默认为当前的时间戳
-function departDate(state= Date.now(),action){
+const initialDate = dateUtil.getTodayUnix(Date.now());
+function departDate(state = initialDate,action){
     const {type,playload} = action;
     switch(type){
         case SET_DEPART_DATE:
@@ -93,5 +99,13 @@ function departDate(state= Date.now(),action){
     }
 }
 
-
-export {from,to,citySelector,isLoadingCityData,cityData,cityDirection,dateSelector,departDate}
+function highSpeed(state = false,action){
+    const {type,playload} = action;
+    switch(type){
+        case TOGGLE_HIGH_SPEED:
+            return playload;
+        default:
+            return state;
+    }
+}
+export {from,to,citySelector,isLoadingCityData,cityData,cityDirection,dateSelector,departDate,highSpeed}

@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import '../../common/css/iconfont.css';
 import PropTypes from 'prop-types';
-import {hideCitySelector,fetchCityData,setSelectedCity} from '../../index/actions';
+import {hideCitySelector,fetchCityData,setSelectedCity} from '../../actions';
 import Loading from '../Loading/Loading';
 import BScroll from 'better-scroll';
 import Suggest from '../Suggest/Suggest'

@@ -3,12 +3,12 @@ import './DateSelector.scss';
 import React,{useCallback,useRef,useEffect} from 'react'
 import Header from '../Header/Header'
 import {connect} from 'react-redux';
-import {hideDateSelector,setDepartDate} from '../../index/actions';
+import {hideDateSelector,setDepartDate} from '../../actions';
 import dateUtil from '../../common/js/date';
 import classnames from 'classnames';
 import BScroll from 'better-scroll';
 
-function Day(props){
+var Day = function(props){
     const {day,setDepartDate,hideDateSelector,departDate} = props;
     const now = dateUtil.getTodayUnix(Date.now());
     const date = new Date( day.date ).getDay();
@@ -35,7 +35,7 @@ function Day(props){
         setDepartDate(day.date);
         hideDateSelector();
     }
-    if( day.date ===  dateUtil.getTodayUnix(departDate) && day.flag !== 'disabled' ){
+    if( day.date ===  departDate && day.flag !== 'disabled' ){
         classes.push('active');
     }
     return (
@@ -53,6 +53,7 @@ Day.propTypes = {
 const mapState = state => {
     return {departDate:state.departDate}
 }
+// 禁止对函数声明重新赋值(no-func-assign);
 Day = connect(
     mapState,
     {
@@ -139,6 +140,7 @@ Month.propTypes = {
     startingMonth:PropTypes.number.isRequired
 }
 function DateSelector (props){
+    const {dateSelectorVisible,hideDateSelector} = props;
     const calendarRef = useRef();
     const scrollRef = useRef;
     useEffect(() => {
@@ -151,12 +153,11 @@ function DateSelector (props){
         }else{
             scrollRef.current.refresh();
         }
-    })
+    },[scrollRef,hideDateSelector])
     const week = ['日','一','二','三','四','五','六'];
-    const {dateSelectorVisible,hideDateSelector} = props;
     const onBack = useCallback(() => {
         hideDateSelector();
-    },[]);
+    },[hideDateSelector]);
     const date = new Date();
     date.setHours(0);
     date.setMinutes(0);

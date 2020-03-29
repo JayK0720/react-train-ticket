@@ -1,0 +1,32 @@
+@import '../../common/css/iconfont.css';
+.query-wrapper{
+    width:100%;
+    height:100%;
+    .date-selector{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:10px 20px;
+        height:30px;
+        background-color:#f1f7f8;
+        color:#5295f9;
+        .calendar-input{
+            position:relative;
+            height:30px;
+            width:130px;
+            padding:0 10px;
+            line-height:30px;
+            background-color:#ffffff;
+            border-radius:4px;
+            font-size:14px;
+            .date-text{
+                padding:0 5px;
+            }
+            .iconfont{
+                position:absolute;
+                right:10px;
+                font-size:20px;
+            }
+        }
+    }
+}

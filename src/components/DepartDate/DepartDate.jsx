@@ -2,16 +2,15 @@ import React,{useMemo} from 'react';
 import './DepartDate.scss';
 import dateUtil from '../../common/js/date.js';
 import {connect} from 'react-redux';
-import {showDateSelector} from '../../index/actions';
+import {showDateSelector} from '../../actions';
 import PropTypes from 'prop-types';
 
 function DepartDate(props){
     let {departDate,showDateSelector} = props;
     // 优化出发日期计算逻辑, 当出发当日期的时间戳不变,则不进行重新计算,依赖的变量传入当天0点的时间戳，只要在同一天便不会重新计算。
-    const h0 = dateUtil.getTodayUnix(departDate);
     const departDateString = useMemo(() => {
-        return dateUtil.formatDate(h0,'yyyy-MM-dd');
-    },[h0]);
+        return dateUtil.formatDate(departDate,'yyyy-MM-dd');
+    },[departDate]);
 
 /*    const departDateString = useMemo(() => {
         console.log("departDate runs");
