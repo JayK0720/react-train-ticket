@@ -11,8 +11,6 @@ import {
     SHOW_DATE_SELECTOR,
     HIDE_DATE_SELECTOR,
     SET_DEPART_DATE,
-    SET_NEXT_DAY,
-    SET_PREV_DAY
 } from '../actionTypes';
 // 出发城市
 export function setFrom(from){

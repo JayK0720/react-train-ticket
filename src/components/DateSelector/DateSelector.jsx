@@ -24,7 +24,7 @@ var Day = function(props){
     if( day.date > now + 86400000 * 29 ){
         classes.push('disabled');
     }
-    if(now === day.date){
+    if(now === day.date && day.flag !== 'disabled'){
         classes.push('today');
     }
     const handleSetDepartDate = () => {

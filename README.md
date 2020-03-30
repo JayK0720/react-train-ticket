@@ -105,7 +105,7 @@ date.getTime();
 function formatDate(date,fmt){
     // 如果检测到字符串包含y ，则将y替换为年份
     if((/y+/).test(fmt)){
-                                    // 获取的时间是数字,拼接为字符串      如果传入的格式为yy-MM-dd,则只截取年份的后两位
+                                    // 获取的时间是数字,拼接为字符串 如果传入的格式为yy-MM-dd,则只截取年份的后两位
         fmt = fmt.replace( RegExp.$1, (date.getFullYear()+"").substring(4 - RegExp.$1.length) );
     }
     const obj = {
