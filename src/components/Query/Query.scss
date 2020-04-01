@@ -10,6 +10,11 @@
         height:30px;
         background-color:#f1f7f8;
         color:#5295f9;
+        .prev-day,.next-day{
+            &.disabled{
+                color:#999;
+            }
+        }
         .calendar-input{
             position:relative;
             height:30px;
@@ -28,5 +33,13 @@
                 font-size:20px;
             }
         }
+    }
+    .list-wrapper{
+        position:absolute;
+        top:90px;
+        bottom:0;
+        width:100%;
+        background-color:pink;
+        overflow:auto;
     }
 }

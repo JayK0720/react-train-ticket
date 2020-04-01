@@ -1,0 +1,12 @@
+.train-list{
+    padding:0 15px;
+    background-color:#f0eff5;
+    .train-item{
+        height:65px;
+        background-color:#fff;
+        margin-bottom:10px;
+        &.last-child{
+            margin-bottom:0;
+        }
+    }
+}

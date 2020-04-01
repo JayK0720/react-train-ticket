@@ -64,8 +64,7 @@ className={classnames({
     
     那是因为每次进入 CitySelector都初始化了一个 BScroll 实例。
     
-![bug-1](https://github.com/JayK0720/react-train-ticket/blob/master/bug-imgs/bug-1.png)
-    
+
     通过使用 useRef Hook 可以解决这个问题
 ```jsx harmony
 const scrollRef = useRef();
@@ -128,7 +127,6 @@ function paddingLeftZero(str){
     return ("00"+str).substring( str.length );
 }
 ```
-![formatDate](https://github.com/JayK0720/react-train-ticket/blob/master/bug-imgs/format.png)
 
 
 
