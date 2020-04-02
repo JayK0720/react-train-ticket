@@ -1,5 +1,6 @@
 import React from 'react';
 import './TrainList.scss';
+import '../../common/css/iconfont.css';
 
 function TrainList(props){
     const {list} = props;
@@ -10,22 +11,28 @@ function TrainList(props){
                 console.log(train);
                 return (
                     <li className={'train-item'} key={index}>
-                        <p className="train-number">G139</p>
-                        <div className={'dStation'}>
-                            <div>
-                                <em>始</em>
-                                <span>北京南</span>
+                        <p className="train-number">{train.trainNumber}</p>
+                        <div className="station-wrapper">
+                            <div className={'dStation'}>
+                                <div className={'start-wrapper'}>
+                                    <em className={'start-text'}>始</em>
+                                    <span className={'start-station'}>{train.dStation}</span>
+                                </div>
+                                <p className={'start-time'}>{train.dTime}</p>
                             </div>
-                            <p>
-                                13:45
-                            </p>
+                            <div className="during-time">
+                                <p className={'time-text'}>{train.time}</p>
+                            </div>
+                            <div className="aStation">
+                                <div className={'end-wrapper'}>
+                                    <em className={'end-text'}>终</em>
+                                    <span className={'end-station'}>{train.aStation}</span>
+                                </div>
+                                <p className={'end-time'}>{train.aTime}</p>
+                            </div>
                         </div>
-                        <div className="aStation">
-                            <div>
-                                <em>终</em>
-                                <span>上海虹桥</span>
-                            </div>
-                            <p>20:05</p>
+                        <div className="arrow-down">
+                            <i className="iconfont">&#xe610;</i>
                         </div>
                     </li>
                 )

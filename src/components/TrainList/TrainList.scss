@@ -1,12 +1,78 @@
 .train-list{
-    padding:0 15px;
     background-color:#f0eff5;
     .train-item{
+        padding:0 15px;
+        display:flex;
         height:65px;
         background-color:#fff;
-        margin-bottom:10px;
+        margin-bottom:5px;
         &.last-child{
             margin-bottom:0;
+        }
+    }
+    .train-number{
+        width:65px;
+        height:65px;
+        line-height:65px;
+        font-size:14px;
+        color:#212121;
+        @media screen and (max-device-width: 320px){
+            width:50px;
+        }
+    }
+    .station-wrapper{
+        display:flex;
+        flex:1;
+        align-items:center;
+        .dStation,.aStation{
+            min-width:60px;
+            text-align:left;
+        }
+        .during-time{
+            flex:1;
+            min-width:0;
+        }
+        .start-text,.end-text{
+            margin-right:5px;
+            display:inline-block;
+            color:#fff;
+            font-size:10px;
+            width:14px;
+            height:14px;
+            border-radius:2px;
+            text-align:center;
+            line-height:14px;
+        }
+        .start-text{
+            background-color:#fe8d1a;
+        }
+        .end-text{
+            background-color:#2b9e39;
+        }
+        .start-station,.end-station{
+            font-size:13px;
+            color:#0c0c0c;
+        }
+        .start-time,.end-time{
+            padding-top:8px;
+            color:#4794e1;
+            font-size:12px;
+        }
+        .time-text{
+            text-align:center;
+            color:#969696;
+            font-size:12px;
+        }
+    }
+    .arrow-down{
+        padding-top:10px;
+        padding-left:20px;
+        color:#cacaca;
+        .iconfont{
+            font-size:12px;
+        }
+        @media screen and (max-device-width:320px){
+            padding-left:8px;
         }
     }
 }

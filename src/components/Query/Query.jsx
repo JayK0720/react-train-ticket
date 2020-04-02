@@ -7,6 +7,7 @@ import './Query.scss';
 import dateUtil from '../../common/js/date.js';
 import {setNextDay,setPrevDay} from '../../actions'
 import BScroll from 'better-scroll';
+import Bottom from '../Bottom/Bottom';
 
 function Query(props){
     const {from,to,departDate,setNextDay,setPrevDay} = props;
@@ -98,6 +99,7 @@ function Query(props){
                     list={trainList}
                 />
             </div>
+            <Bottom/>
         </div>
     )
 }
