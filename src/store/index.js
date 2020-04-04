@@ -10,7 +10,10 @@ import {
     cityDirection,
     dateSelector,
     departDate,
-    highSpeed
+    highSpeed,
+    ticketInfo,
+    orderType,
+    isFilterVisible
 }
 from '../reducer/index.js'
 
@@ -24,7 +27,10 @@ const store =  createStore(
         direction:cityDirection,
         dateSelectorVisible:dateSelector,
         departDate,
-        highSpeed
+        highSpeed,
+        ticketInfo,
+        orderType,
+        isFilterVisible
     }),
     compose(
         applyMiddleware(

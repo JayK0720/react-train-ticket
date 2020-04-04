@@ -25,5 +25,15 @@
         .filter-icon{
             color:#838383;
         }
+        &.order-type:active,&.ticket-info:active{
+            .filter-text,.filter-icon{
+                color:#3d80b2;
+            }
+        }
+        &.active{
+            .filter-text,.filter-icon{
+                color:#3d80b2;
+            }
+        }
     }
 }

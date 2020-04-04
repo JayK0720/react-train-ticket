@@ -1,14 +1,19 @@
+@import '../../common/css/mixin.scss';
 .train-list{
     background-color:#f0eff5;
     .train-item{
         padding:0 15px;
-        display:flex;
-        height:65px;
+        height:auto;
+        min-height:95px;
         background-color:#fff;
         margin-bottom:5px;
         &.last-child{
             margin-bottom:0;
         }
+    }
+    .train-info{
+        display:flex;
+        border-bottom:1px dashed #ededed;
     }
     .train-number{
         width:65px;
@@ -18,6 +23,28 @@
         color:#212121;
         @media screen and (max-device-width: 320px){
             width:50px;
+        }
+    }
+    .ticket-info{
+        padding:4px 0;
+        min-height:28px;
+        .ticket-list{
+            min-height:28px;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            line-height:18px;
+        }
+        .ticket-item{
+            width:33.33%;
+            font-size:12px;
+            color:#2a2a2a;
+            &.disabled{
+                color:#999;
+            }
+            .has-ticket{
+                color:#529a66;
+            }
         }
     }
     .station-wrapper{
@@ -31,6 +58,23 @@
         .during-time{
             flex:1;
             min-width:0;
+            text-align:center;
+            overflow:hidden;
+            .card-icon{
+                height:14px;
+                line-height:14px;
+                .iconfont{
+                    color:#449cee;
+                }
+            }
+            .arrow-icon{
+                height:6px;
+                line-height:6px;
+                transform:scale(3,1.8);
+                .iconfont{
+                    color:#cbe0f6;
+                }
+            }
         }
         .start-text,.end-text{
             margin-right:5px;

@@ -11,6 +11,26 @@ import {
     SHOW_DATE_SELECTOR,
     HIDE_DATE_SELECTOR,
     SET_DEPART_DATE,
+    ORDER_DEPART,
+    ORDER_DURATION,
+    SET_ORDER_TYPE,
+    SET_ONLY_TICKETS,
+    SET_TICKET_TYPES,
+    SET_CHECKED_TICKET_TYPES,
+    SET_TRAIN_TYPES,
+    SET_CHECKED_TRAIN_TYPES,
+    SET_DEPART_STATION,
+    SET_CHECKED_DEPART_STATION,
+    SET_ARRIVE_STATION,
+    SET_CHECKED_ARRIVE_STATION,
+    SET_DEPART_TIME_START,
+    SET_DEPART_TIME_END,
+    SET_ARRIVE_TIME_START,
+    SET_ARRIVE_TIME_END,
+    SET_IS_FILTER_VISIBLE,
+    SHOW_PRICE,
+    SHOW_COUNT,
+    TOGGLE_TICKET_INFO
 } from '../actionTypes';
 // 出发城市
 export function setFrom(from){
@@ -164,3 +184,134 @@ export function setPrevDay(){
     }
 }
 
+// 切换 早-->晚 耗时 短 -> 长
+export function toggleOrderType(){
+    return (dispatch,getState) => {
+        const {orderType} = getState();
+        if(orderType === ORDER_DEPART){
+            dispatch({
+                type:SET_ORDER_TYPE,
+                playload:ORDER_DURATION
+            })
+        }else{
+            dispatch({
+                type:SET_ORDER_TYPE,
+                playload:ORDER_DEPART
+            })
+        }
+    }
+}
+// 切换是否显示有票
+export function toggleOnlyTickets(onlyTickets){
+    return (dispatch,getState) => {
+        const {onlyTickets} = getState();
+        dispatch({
+            type:SET_ONLY_TICKETS,
+            playload:onlyTickets
+        })
+    }
+}
+// 车票类型
+export function setTicketTypes(ticketTypes){
+    return {
+        type:SET_TICKET_TYPES,
+        playload:ticketTypes
+    }
+}
+// 选择的车票类型
+export function setCheckedTicketTypes(checkedTicketTypes){
+    return {
+        type:SET_CHECKED_TICKET_TYPES,
+        playload:checkedTicketTypes
+    }
+}
+// 车票类型
+export function setTrainTypes(trainTypes){
+    return {
+        type:SET_TRAIN_TYPES,
+        playload:trainTypes
+    }
+}
+export function setCheckedTrainTypes(checkedTrainTypes){
+    return {
+        type:SET_CHECKED_TRAIN_TYPES,
+        playload:checkedTrainTypes
+    }
+}
+export function setDepartStation(departStation){
+    return {
+        type:SET_DEPART_STATION,
+        playload:departStation
+    }
+}
+
+export function setCheckedDepartStation(checkedDepartStation){
+    return{
+        type:SET_CHECKED_DEPART_STATION,
+        playload:checkedDepartStation
+    }
+}
+
+export function setArriveStation(arriveStation){
+    return {
+        type:SET_ARRIVE_STATION,
+        playload:arriveStation
+    }
+}
+
+export function setCheckedArriveStation(checkedArriveStation){
+    return{
+        type:SET_CHECKED_ARRIVE_STATION,
+        playload:checkedArriveStation
+    }
+}
+
+export function setDepartTimeStart(departTimeStart){
+    return {
+        type:SET_DEPART_TIME_START,
+        playload:departTimeStart
+    }
+}
+export function setDepartTimeEnd(departTimeEnd){
+    return {
+        type:SET_DEPART_TIME_END,
+        playload:departTimeEnd
+    }
+}
+
+export function setArriveTimeStart(arriveTimeStart){
+    return {
+        type:SET_ARRIVE_TIME_START,
+        playload:arriveTimeStart
+    }
+}
+export function setArriveTimeEnd(arriveTimeEnd){
+    return {
+        type:SET_ARRIVE_TIME_END,
+        playload:arriveTimeEnd
+    }
+}
+
+export function setIsFilterVisible(isFilterVisible){
+    return {
+        type:SET_IS_FILTER_VISIBLE,
+        playload:isFilterVisible
+    }
+}
+
+export function toggleTicketInfo(){
+    return (dispatch,getState) => {
+        const {ticketInfo} = getState();
+        if(ticketInfo === SHOW_PRICE){
+            dispatch({
+                type:TOGGLE_TICKET_INFO,
+                playload:SHOW_COUNT
+            })
+        }else{
+            dispatch({
+                type:TOGGLE_TICKET_INFO,
+                playload:SHOW_PRICE
+            })
+        }
+    }
+}
