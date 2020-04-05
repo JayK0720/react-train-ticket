@@ -2,8 +2,9 @@ import React from 'react';
 import './Bottom.scss';
 import '../../common/css/iconfont.css';
 import {connect} from 'react-redux';
-import {toggleOrderType,toggleHighSpeed,toggleTicketInfo} from '../../actions';
+import {toggleOrderType,toggleHighSpeed,toggleTicketInfo,toggleFilterVisible} from '../../actions';
 import {ORDER_DEPART,SHOW_PRICE} from '../../actionTypes';
+import TrainFilter from '../TrainFilter/TrainFilter';
 
 const Bottom = function (props){
     const {
@@ -12,11 +13,13 @@ const Bottom = function (props){
         toggleHighSpeed,
         toggleTicketInfo,
         ticketInfo,
-        highSpeed
+        highSpeed,
+        toggleFilterVisible,
+        isFilterVisible
     } = props;
     return (
         <div className={'bottom-wrapper'}>
-            <ul className={'filter-wrapper'}>
+            <ul className={'bottom-list'}>
                 <li
                     className="filter-item order-type"
                     onClick={toggleOrderType}
@@ -44,16 +47,23 @@ const Bottom = function (props){
                     <p className={'filter-text'}>
                         {
                             ticketInfo === SHOW_PRICE
-                            ? '显示票价'
-                            : '显示余票'
+                            ? '显示余票'
+                            : '显示票价'
                         }
                     </p>
                 </li>
-                <li className="filter-item">
+                <li
+                    className="filter-item"
+                    onClick={toggleFilterVisible}
+                >
                     <i className="iconfont filter-icon">&#xe62e;</i>
                     <p className={'filter-text'}>综合筛选</p>
                 </li>
             </ul>
+            <TrainFilter
+                show={isFilterVisible}
+                toggleFilterVisible={toggleFilterVisible}
+            />
         </div>
     )
 }
@@ -61,13 +71,15 @@ const mapStateToProps = state => {
     return {
         orderType:state.orderType,
         ticketInfo:state.ticketInfo,
-        highSpeed:state.highSpeed
+        highSpeed:state.highSpeed,
+        isFilterVisible:state.isFilterVisible
     }
 }
 const mapStateToDispatch = {
     toggleOrderType,
     toggleHighSpeed,
-    toggleTicketInfo
+    toggleTicketInfo,
+    toggleFilterVisible
 }
 export default connect(
     mapStateToProps,

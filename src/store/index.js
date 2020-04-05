@@ -13,7 +13,7 @@ import {
     highSpeed,
     ticketInfo,
     orderType,
-    isFilterVisible
+    isFilterVisible,
 }
 from '../reducer/index.js'
 
@@ -30,7 +30,7 @@ const store =  createStore(
         highSpeed,
         ticketInfo,
         orderType,
-        isFilterVisible
+        isFilterVisible,
     }),
     compose(
         applyMiddleware(

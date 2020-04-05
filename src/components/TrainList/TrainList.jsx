@@ -1,16 +1,27 @@
 import React from 'react';
 import './TrainList.scss';
 import '../../common/css/iconfont.css';
+import {connect} from 'react-redux';
+import {SHOW_COUNT} from '../../actionTypes';
+import PropTypes from 'prop-types';
 
 function TrainList(props){
-    const {list} = props;
-    const TicketInfo = function(count){
-
+    const {list,ticketInfo} = props;
+    const showTicketCount = (count) => {
+        if(count >= 10){
+            return <span className={'has-ticket'}>有</span>
+        }else if(count > 0 && count < 10){
+            return <span>{count}张</span>
+        }else{
+            return <span className={'no-ticket'}>无</span>
+        }
+    }
+    const showTicketPrice = (price) => {
+        return <span> ¥{price}</span>
     }
     return (
         <ul className={'train-list'}>
             {list.length > 0 && list.map((train,index) => {
-                console.log(train);
                 return (
                     <li className={'train-item'} key={index}>
                         <div className="train-info">
@@ -49,11 +60,9 @@ function TrainList(props){
                                             className={['ticket-item',ticket.count === 0 ? 'disabled':""].join(" ")}
                                         >
                                             <span className={'ticket-type'}>{ticket.type}: </span>
-                                            {ticket.count >= 10
-                                                ? (<span className={'has-ticket'}>有</span>)
-                                                : ticket.count > 0
-                                                ? (<span>{ticket.count}张</span>)
-                                                : (<span className={'no-ticket'}>无</span>)
+                                            {ticketInfo === SHOW_COUNT
+                                                ? showTicketCount(ticket.count)
+                                                : showTicketPrice(ticket.price)
                                             }
                                         </li>)
                                 })}
@@ -65,5 +74,16 @@ function TrainList(props){
         </ul>
     )
 }
-
-export default TrainList
+TrainList.propTypes = {
+    list:PropTypes.array,
+    ticketInfo:PropTypes.string
+}
+const mapStateToProps = state => {
+    return {
+        ticketInfo:state.ticketInfo
+    }
+}
+export default connect(
+    mapStateToProps,
+    null
+)(TrainList)

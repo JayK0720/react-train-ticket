@@ -25,7 +25,7 @@ import {
     SET_DEPART_TIME_END,
     SET_ARRIVE_TIME_START,
     SET_ARRIVE_TIME_END,
-    SET_IS_FILTER_VISIBLE,
+    TOGGLE_FILTER_VISIBLE,
     SHOW_COUNT,
     TOGGLE_TICKET_INFO
 } from '../actionTypes';
@@ -149,7 +149,7 @@ export function onlyTickets(state=false,action){
 export function isFilterVisible(state=false,action){
     const {type,playload} = action;
     switch(type){
-        case SET_IS_FILTER_VISIBLE:
+        case TOGGLE_FILTER_VISIBLE:
             return playload;
         default:
             return state;

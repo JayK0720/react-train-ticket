@@ -1,0 +1,34 @@
+.filter-wrapper{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    background-color:transparent;
+    &.disabled{
+        display:none;
+    }
+    .filter-content{
+        position:absolute;
+        bottom:0;
+        left:0;
+        right:0;
+        height:450px;
+        background-color:pink;
+    }
+    .title{
+        display:flex;
+        padding:0 20px;
+        height:30px;
+        line-height:30px;
+        justify-content:space-between;
+        background-color:#f9f9f9;
+        font-size:14px;
+        .reset{
+            color:#777;
+        }
+        .confirm{
+            color:#4794e1;
+        }
+    }
+}

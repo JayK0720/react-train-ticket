@@ -27,7 +27,7 @@ import {
     SET_DEPART_TIME_END,
     SET_ARRIVE_TIME_START,
     SET_ARRIVE_TIME_END,
-    SET_IS_FILTER_VISIBLE,
+    TOGGLE_FILTER_VISIBLE,
     SHOW_PRICE,
     SHOW_COUNT,
     TOGGLE_TICKET_INFO
@@ -292,10 +292,13 @@ export function setArriveTimeEnd(arriveTimeEnd){
     }
 }
 
-export function setIsFilterVisible(isFilterVisible){
-    return {
-        type:SET_IS_FILTER_VISIBLE,
-        playload:isFilterVisible
+export function toggleFilterVisible(){
+    return (dispatch,getState) => {
+        const {isFilterVisible} = getState();
+        dispatch({
+            type:TOGGLE_FILTER_VISIBLE,
+            playload:!isFilterVisible
+        })
     }
 }
 
