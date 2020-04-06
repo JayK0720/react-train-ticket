@@ -14,6 +14,19 @@ import {
     ticketInfo,
     orderType,
     isFilterVisible,
+    trainList,
+    ticketTypes,
+    trainTypes,
+    arriveStation,
+    departStation,
+    departTimeStart,
+    departTimeEnd,
+    arriveTimeStart,
+    arriveTimeEnd,
+    checkedTicketTypes,
+    checkedTrainTypes,
+    checkedDepartStation,
+    checkedArriveStation
 }
 from '../reducer/index.js'
 
@@ -31,6 +44,19 @@ const store =  createStore(
         ticketInfo,
         orderType,
         isFilterVisible,
+        trainList,
+        ticketTypes,
+        trainTypes,
+        arriveStation,
+        departStation,
+        departTimeStart,
+        departTimeEnd,
+        arriveTimeStart,
+        arriveTimeEnd,
+        checkedTicketTypes,
+        checkedTrainTypes,
+        checkedDepartStation,
+        checkedArriveStation
     }),
     compose(
         applyMiddleware(

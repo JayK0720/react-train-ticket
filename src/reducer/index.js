@@ -12,7 +12,6 @@ import {
     TOGGLE_HIGH_SPEED,
     SET_ORDER_TYPE,
     ORDER_DEPART,
-    SET_ONLY_TICKETS,
     SET_TICKET_TYPES,
     SET_CHECKED_TICKET_TYPES,
     SET_TRAIN_TYPES,
@@ -27,7 +26,8 @@ import {
     SET_ARRIVE_TIME_END,
     TOGGLE_FILTER_VISIBLE,
     SHOW_COUNT,
-    TOGGLE_TICKET_INFO
+    TOGGLE_TICKET_INFO,
+    SET_TRAIN_LIST
 } from '../actionTypes';
 import dateUtil from '../common/js/date';
 
@@ -135,17 +135,7 @@ export function orderType(state = ORDER_DEPART ,action){
             return state;
     }
 }
-
-export function onlyTickets(state=false,action){
-    const {type,playload} = action;
-    switch(type){
-        case SET_ONLY_TICKETS:
-            return playload;
-        default:
-            return state;
-    }
-}
-
+// 是否显示火车筛选浮层
 export function isFilterVisible(state=false,action){
     const {type,playload} = action;
     switch(type){
@@ -155,7 +145,7 @@ export function isFilterVisible(state=false,action){
             return state;
     }
 }
-
+// 火车车票类型
 export function ticketTypes(state = [],action){
     const {type,playload} = action;
     switch(type){
@@ -165,7 +155,7 @@ export function ticketTypes(state = [],action){
             return state;
     }
 }
-
+// 火车车次类型
 export function trainTypes(state = [],action){
     const {type,playload} = action;
     switch(type){
@@ -175,7 +165,7 @@ export function trainTypes(state = [],action){
             return state;
     }
 }
-
+// 选中的火车车票类型
 export function checkedTicketTypes(state={},action){
     const {type,playload} = action;
     switch(type){
@@ -185,6 +175,7 @@ export function checkedTicketTypes(state={},action){
             return state;
     }
 }
+// 选中的火车车次类型
 export function checkedTrainTypes(state={},action){
     const {type,playload} = action;
     switch(type){
@@ -194,11 +185,101 @@ export function checkedTrainTypes(state={},action){
             return state;
     }
 }
-
+// 选中的火车出发站点
+export function checkedDepartStation(state={},action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_CHECKED_DEPART_STATION:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 选中的火车到达站点
+export function checkedArriveStation(state={},action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_CHECKED_ARRIVE_STATION:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 切换 火车座位 数量信息 和 价格信息
 export function ticketInfo(state = SHOW_COUNT,action){
     const {type,playload} = action;
     switch(type){
         case TOGGLE_TICKET_INFO:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 请求到的火车车次数据列表
+export function trainList(state = [],action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_TRAIN_LIST:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 火车所有的到达车站站点
+export function arriveStation(state =[],action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_ARRIVE_STATION:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 火车所有的出发车站站点
+export function departStation(state=[],action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_DEPART_STATION:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 出发开始日期
+export function departTimeStart(state=0,action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_DEPART_TIME_START:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 出发截止日期
+export function departTimeEnd(state= 24,action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_DEPART_TIME_END:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 到站初始日期
+export function arriveTimeStart(state=0,action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_ARRIVE_TIME_START:
+            return playload;
+        default:
+            return state;
+    }
+}
+// 到站截止日期
+export function arriveTimeEnd(state= 24,action){
+    const {type,playload} = action;
+    switch(type){
+        case SET_ARRIVE_TIME_END:
             return playload;
         default:
             return state;

@@ -1,17 +1,21 @@
-import React ,{useCallback,useEffect,useState,useRef}from 'react';
+import React ,{useCallback,useEffect,useRef}from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import TrainList from '../TrainList/TrainList'
 import {connect} from 'react-redux';
 import './Query.scss';
-import {setNextDay,setPrevDay} from '../../actions'
+import {setNextDay,setPrevDay,setTrainList,setTicketTypes,setTrainTypes,setArriveStation,setDepartStation} from '../../actions'
 import BScroll from 'better-scroll';
 import Bottom from '../Bottom/Bottom';
 import CalendarNav from '../CalendarNav/CalendarNav';
 import useNav from '../../common/js/useNav';
 
 function Query(props){
-    const {from,to,departDate,setNextDay,setPrevDay} = props;
+    const {
+        from,to,departDate,setNextDay,
+        setPrevDay,trainList,setTrainList,
+        setTicketTypes,setTrainTypes,setArriveStation,setDepartStation,
+    } = props;
     const scrollRef = useRef();
     const wrapperRef = useRef();
 
@@ -26,14 +30,16 @@ function Query(props){
         handleSetPrevDay,
         handleSetNextDay
     } = useNav(departDate,setPrevDay,setNextDay);
-
-    const [trainList,setTrainList] = useState([]);
-
     useEffect(() => {
         fetch("http://121.43.126.106:5000/api/ticket-server/ticket")
             .then(response => response.json())
             .then(({result}) => {
-                setTrainList(result.dataMap.directTrainInfo.trains);
+                const {dataMap:{directTrainInfo:{trains,filter}}} = result;
+                setTrainList(trains);
+                setTicketTypes(filter.ticketType);
+                setTrainTypes(filter.trainType);
+                setDepartStation(filter.depStation);
+                setArriveStation(filter.arrStation);
             })
     },[departDate]);
     useEffect(() => {
@@ -78,16 +84,22 @@ Query.propTypes = {
     to:PropTypes.string,
     departDate:PropTypes.number,
     setNextDay:PropTypes.func,
-    setPrevDay:PropTypes.func
+    setPrevDay:PropTypes.func,
+    setTicketTypes:PropTypes.func,
+    setTrainTypes:PropTypes.func,
+    setArriveStation:PropTypes.func,
+    setDepartStation:PropTypes.func,
 }
+
 const mapStateToProps = state => {
     return {
         from:state.from,
         to:state.to,
-        departDate:state.departDate
+        departDate:state.departDate,
+        trainList:state.trainList,
     }
 }
 export default connect(
     mapStateToProps,
-    {setNextDay,setPrevDay}
+    {setNextDay,setPrevDay,setTrainList,setTicketTypes,setTrainTypes,setArriveStation,setDepartStation}
 )(Query);

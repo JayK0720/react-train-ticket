@@ -14,7 +14,6 @@ import {
     ORDER_DEPART,
     ORDER_DURATION,
     SET_ORDER_TYPE,
-    SET_ONLY_TICKETS,
     SET_TICKET_TYPES,
     SET_CHECKED_TICKET_TYPES,
     SET_TRAIN_TYPES,
@@ -30,7 +29,8 @@ import {
     TOGGLE_FILTER_VISIBLE,
     SHOW_PRICE,
     SHOW_COUNT,
-    TOGGLE_TICKET_INFO
+    TOGGLE_TICKET_INFO,
+    SET_TRAIN_LIST
 } from '../actionTypes';
 // 出发城市
 export function setFrom(from){
@@ -201,16 +201,6 @@ export function toggleOrderType(){
         }
     }
 }
-// 切换是否显示有票
-export function toggleOnlyTickets(onlyTickets){
-    return (dispatch,getState) => {
-        const {onlyTickets} = getState();
-        dispatch({
-            type:SET_ONLY_TICKETS,
-            playload:onlyTickets
-        })
-    }
-}
 // 车票类型
 export function setTicketTypes(ticketTypes){
     return {
@@ -232,30 +222,28 @@ export function setTrainTypes(trainTypes){
         playload:trainTypes
     }
 }
-export function setCheckedTrainTypes(checkedTrainTypes){
-    return {
-        type:SET_CHECKED_TRAIN_TYPES,
-        playload:checkedTrainTypes
-    }
-}
 export function setDepartStation(departStation){
     return {
         type:SET_DEPART_STATION,
         playload:departStation
     }
 }
-
+export function setArriveStation(arriveStation){
+    return {
+        type:SET_ARRIVE_STATION,
+        playload:arriveStation
+    }
+}
 export function setCheckedDepartStation(checkedDepartStation){
     return{
         type:SET_CHECKED_DEPART_STATION,
         playload:checkedDepartStation
     }
 }
-
-export function setArriveStation(arriveStation){
+export function setCheckedTrainTypes(checkedTrainTypes){
     return {
-        type:SET_ARRIVE_STATION,
-        playload:arriveStation
+        type:SET_CHECKED_TRAIN_TYPES,
+        playload:checkedTrainTypes
     }
 }
 
@@ -316,5 +304,12 @@ export function toggleTicketInfo(){
                 playload:SHOW_PRICE
             })
         }
+    }
+}
+
+export function setTrainList(trainList){
+    return {
+        type:SET_TRAIN_LIST,
+        playload:trainList
     }
 }
