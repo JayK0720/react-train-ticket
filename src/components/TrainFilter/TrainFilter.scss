@@ -16,7 +16,7 @@
         height:450px;
         background-color:#fff;
     }
-    .top-title{
+    .title{
         display:flex;
         padding:0 20px;
         height:30px;
@@ -34,7 +34,7 @@
     .option-wrapper{
         height:420px;
         overflow:auto;
-        .title{
+        .option-title{
             height:30px;
             line-height:30px;
             padding-left:20px;
@@ -60,6 +60,10 @@
             font-size:12px;
             background-color:#fff;
             border:1px solid #c7ced4;
+            &.checked{
+                background-color:#4794e1;
+                color:#fff;
+            }
             &:nth-of-type(3n){
                 margin-right:0;
             }

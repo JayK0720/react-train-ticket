@@ -1,8 +1,9 @@
-import React ,{memo,useRef,useEffect} from 'react'
+import React ,{memo,useRef,useEffect,useState,useCallback} from 'react'
 import './TrainFilter.scss';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import BScroll from 'better-scroll';
+import Slider from '../Slider/Slider';
 
 import {
     setCheckedDepartStation,
@@ -16,30 +17,51 @@ import {
 } from '../../actions';
 
 const OptionItem = memo(function (props){
-    const {name} = props;
+    const {name,checked,toggle,value} = props;
     return (
         <li
-            className={'option-item'}
+            className={['option-item',checked ? 'checked' : ""].join(" ")}
+            onClick={() => {toggle(value)}}
         >{name}</li>
     )
-})
+});
 
-const Options = memo(function (props){
-    const {title,options,checkedMap} = props;
+OptionItem.propTypes = {
+    name:PropTypes.string,
+    checked:PropTypes.bool,
+    toggle:PropTypes.func,
+    value:PropTypes.string
+}
+
+const Options = memo(function ({checkedMap,update,title,options}){
+    // 点击切换事件，传入当前点击选项的value
+    const toggle = useCallback((value) => {
+        let newCheckedMap = {...checkedMap};
+        if(newCheckedMap[value]){
+            delete newCheckedMap[value];
+        }else{
+            newCheckedMap[value] = true;
+        }
+        update(newCheckedMap);
+    },[update,checkedMap])
     return (
         <div className={'option'}>
-            <h3 className={'title'}>{title}</h3>
+            <h3 className={'option-title'}>{title}</h3>
             <ul className={'option-list'}>
                 {options.map((option,idx) => {
-                    return <OptionItem
-                                key={idx}
-                                {...option}
-                        />
+                    return <OptionItem key={idx} {...option} toggle={toggle} checked={checkedMap[option.value]}/>
                 })}
             </ul>
         </div>
     )
 })
+Options.propTypes = {
+    checkedMap:PropTypes.object,
+    update:PropTypes.func,
+    title:PropTypes.string,
+    options:PropTypes.array
+}
+
 
 function TrainFilter(props){
     const {
@@ -62,35 +84,58 @@ function TrainFilter(props){
         }else{
             scrollRef.current.refresh();
         }
-    })
+    });
+    // 设置一个本地缓存的数据存储选中的数据，初始数据来源于store
+    const [localCheckedTrainTypes,setLocalCheckedTrainTypes] = useState(() => {
+        return {...checkedTrainTypes};
+    }) ;
+    const [localCheckedTicketTypes,setLocalCheckedTicketTypes] = useState(() => {
+        return {...checkedTicketTypes};
+    });
+    const [localCheckedDepartStation,setLocalCheckedDepartStation] = useState(() => {
+        return {...checkedDepartStation};
+    });
+    const [localCheckedArriveStation,setLocalCheckedArriveStation] = useState(() => {
+        return {...checkedArriveStation};
+    });
+    // 被选中的数据 使用本地的数据,将更新 座位类型 和 车票类型的函数 抽象为统一的update函数,传递到子组件,再子组件的 点击时间中 更新
     const optionGroup = [
         {
             title:'车次类型',
             options:trainTypes,
-            checkedMap:checkedTrainTypes,
+            checkedMap:localCheckedTrainTypes,
+            update:setLocalCheckedTrainTypes
         },
         {
             title:'车票类型',
             options:ticketTypes,
-            checkedMap:checkedTicketTypes,
+            checkedMap:localCheckedTicketTypes,
+            update:setLocalCheckedTicketTypes
         },
         {
             title:'出发车站',
             options:departStation,
-            checkedMap:checkedDepartStation,
+            checkedMap:localCheckedDepartStation,
+            update:setLocalCheckedDepartStation
         },
         {
             title:'到达车站',
             options:arriveStation,
-            checkedMap:checkedArriveStation
+            checkedMap:localCheckedArriveStation,
+            update:setLocalCheckedArriveStation
         }
     ]
+    const [localDepartTimeStart,setLocalDepartTimeStart] = useState(departTimeStart);
+    const [localDepartTimeEnd,setLocalDepartTimeEnd] = useState(departTimeEnd);
+    const [localArriveTimeStart,setLocalArriveTimeStart] = useState(arriveTimeStart);
+    const [localArriveTimeEnd,setLocalArriveTimeEnd] = useState(arriveTimeEnd);
+
     return (
         <div
             className={['filter-wrapper',!show ? 'disabled' : ""].join(" ")}
         >
             <div className="filter-content">
-                <div className="top-title">
+                <div className="title">
                     <span className={'reset'}>重置</span>
                     <span
                         className="confirm"
@@ -104,6 +149,20 @@ function TrainFilter(props){
                     <section className={'option-scroller'}
                     >
                         {optionGroup.map((option,index) => <Options key={index} {...option}/>)}
+                        <Slider
+                            title={'出发时间'}
+                            startTime={localDepartTimeStart}
+                            endTime={localDepartTimeEnd}
+                            onStartChanged={setLocalDepartTimeStart}
+                            onEndChanged={setLocalDepartTimeEnd}
+                        />
+                        <Slider
+                            title={'到达时间'}
+                            startTime={localArriveTimeStart}
+                            endTime={localArriveTimeEnd}
+                            onStartChanged={setLocalArriveTimeStart}
+                            onEndChanged={setLocalArriveTimeEnd}
+                        />
                     </section>
                 </div>
             </div>
