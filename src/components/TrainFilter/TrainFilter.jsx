@@ -62,7 +62,6 @@ Options.propTypes = {
     options:PropTypes.array
 }
 
-
 function TrainFilter(props){
     const {
         show,toggleFilterVisible,
@@ -72,6 +71,10 @@ function TrainFilter(props){
         arriveTimeStart, arriveTimeEnd,
         departTimeStart, departTimeEnd,
         checkedTicketTypes, checkedTrainTypes,
+        setCheckedDepartStation, setCheckedArriveStation,
+        setCheckedTicketTypes, setCheckedTrainTypes,
+        setDepartTimeStart, setDepartTimeEnd,
+        setArriveTimeStart, setArriveTimeEnd
     } = props;
     const scrollRef = useRef();
     const scrollWrapper = useRef();
@@ -125,10 +128,23 @@ function TrainFilter(props){
             update:setLocalCheckedArriveStation
         }
     ]
+
     const [localDepartTimeStart,setLocalDepartTimeStart] = useState(departTimeStart);
     const [localDepartTimeEnd,setLocalDepartTimeEnd] = useState(departTimeEnd);
     const [localArriveTimeStart,setLocalArriveTimeStart] = useState(arriveTimeStart);
     const [localArriveTimeEnd,setLocalArriveTimeEnd] = useState(arriveTimeEnd);
+
+    const confirm = () => {
+        setCheckedDepartStation(localCheckedDepartStation);
+        setCheckedArriveStation(localCheckedArriveStation);
+        setCheckedTicketTypes(localCheckedTicketTypes);
+        setCheckedTrainTypes(localCheckedTrainTypes);
+        setDepartTimeStart(localDepartTimeStart);
+        setDepartTimeEnd(localDepartTimeEnd);
+        setArriveTimeStart(localArriveTimeStart);
+        setArriveTimeEnd(localArriveTimeEnd);
+        toggleFilterVisible();
+    }
 
     return (
         <div
@@ -139,7 +155,7 @@ function TrainFilter(props){
                     <span className={'reset'}>重置</span>
                     <span
                         className="confirm"
-                        onClick={toggleFilterVisible}
+                        onClick={confirm}
                     >确定</span>
                 </div>
                 <div
@@ -203,5 +219,14 @@ const mapStateToProps = state => {
 }
 export default connect(
     mapStateToProps,
-    null
+    {
+        setCheckedDepartStation,
+        setCheckedArriveStation,
+        setCheckedTicketTypes,
+        setCheckedTrainTypes,
+        setDepartTimeStart,
+        setDepartTimeEnd,
+        setArriveTimeStart,
+        setArriveTimeEnd,
+    }
 )(TrainFilter);

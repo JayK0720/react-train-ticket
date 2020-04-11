@@ -1,0 +1,31 @@
+.slider{
+    padding:45px 40px 30px;
+    .slider-wrapper{
+        position:relative;
+        height:2px;
+        width:100%;
+        background-color:#c7ced4;
+    }
+    .slider-range{
+        position:absolute;
+        left:0;
+        top:0;
+        height:2px;
+        background-color:#4794e1;
+    }
+    .start-btn,.end-btn{
+        transform:translate(-10px,-10px);
+        position:absolute;
+        width:20px;
+        height:20px;
+        border-radius:50%;
+        background-color:#fff;
+        border:1px solid #e9e9e9;
+        z-index:20;
+    }
+    .start-text,.end-text{
+        position:absolute;
+        font-size:12px;
+        transform:translate(-6px,-22px);
+    }
+}
