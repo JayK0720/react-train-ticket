@@ -129,6 +129,34 @@ function paddingLeftZero(str){
 ```
 
     left-pad 工具库
+  
+# useRef()
+    
+    const refCounter = useRef(initialValue);
+    
+    useRef() 返回一个可变的ref对象,其.current属性被初始化为传入的参数(initialValue)。返回的ref对象在组件的整个生命
+    周期内保持不变。
+    
+    变更.current属性不会引发组件重新渲染。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 

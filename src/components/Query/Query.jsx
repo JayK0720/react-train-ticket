@@ -35,14 +35,21 @@ function Query(props){
             .then(response => response.json())
             .then(({result}) => {
                 const {dataMap:{directTrainInfo:{trains,filter}}} = result;
-                console.log(filter);
                 setTrainList(trains);
                 setTicketTypes(filter.ticketType);
                 setTrainTypes(filter.trainType);
                 setDepartStation(filter.depStation);
                 setArriveStation(filter.arrStation);
             })
-    },[departDate]);
+    },[
+        departDate,
+        setTrainList,
+        setTicketTypes,
+        setTrainTypes,
+        setDepartStation,
+        setArriveStation
+    ]);
+    
     useEffect(() => {
         if(!scrollRef.current){
             scrollRef.current = new BScroll(wrapperRef.current,{

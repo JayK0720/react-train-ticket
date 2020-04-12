@@ -121,6 +121,12 @@ export function highSpeed(state = false,action){
     switch(type){
         case TOGGLE_HIGH_SPEED:
             return playload;
+        case SET_CHECKED_TRAIN_TYPES:
+            if((playload[1] === true) && (playload[5] === true) ){
+                return true;
+            }else{
+                return false;
+            }
         default:
             return state;
     }
@@ -181,6 +187,19 @@ export function checkedTrainTypes(state={},action){
     switch(type){
         case SET_CHECKED_TRAIN_TYPES:
             return playload;
+            // 如果点击了切换只看高铁动车,则高铁和动车选项也要被选中
+        case TOGGLE_HIGH_SPEED:
+            const highSpeed = playload;
+            const newCheckedTrainTypes = Object.assign({},state);
+            if(highSpeed){
+                newCheckedTrainTypes[1] = true;
+                newCheckedTrainTypes[5] = true;
+            }else{
+                delete newCheckedTrainTypes[1];
+                delete newCheckedTrainTypes[5];
+            }
+            console.log('reducer:',newCheckedTrainTypes);
+            return newCheckedTrainTypes;
         default:
             return state;
     }
@@ -245,9 +264,10 @@ export function departStation(state=[],action){
             return state;
     }
 }
-// 出发开始日期
-export function departTimeStart(state=0,action){
-    const {type,playload} = action;
+
+// 火车出发开始时间
+export function departTimeStart(state= 0,action){
+    const {playload,type} = action;
     switch(type){
         case SET_DEPART_TIME_START:
             return playload;
@@ -255,9 +275,10 @@ export function departTimeStart(state=0,action){
             return state;
     }
 }
-// 出发截止日期
+
+// 火车出发截止日期
 export function departTimeEnd(state= 24,action){
-    const {type,playload} = action;
+    const {playload,type} = action;
     switch(type){
         case SET_DEPART_TIME_END:
             return playload;
@@ -265,8 +286,9 @@ export function departTimeEnd(state= 24,action){
             return state;
     }
 }
+
 // 到站初始日期
-export function arriveTimeStart(state=0,action){
+export function arriveTimeStart(state= 0,action){
     const {type,playload} = action;
     switch(type){
         case SET_ARRIVE_TIME_START:

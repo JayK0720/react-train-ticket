@@ -18,11 +18,21 @@ function paddingLeftZero(str){
 
 const Slider = memo(function (props){
     const {title,startTime,endTime,onStartChanged,onEndChanged} = props;
-    console.log(startTime,endTime);
-    // 将初始时间和 结束时间 换算为 100%;
+    const prevStartHours = useRef(startTime);
+    const prevEndHours = useRef(endTime);
+
+    // 将初始时间和 结束时间 换算为 100%; useState(()=>{}) 延迟初始化,只会在组件第一次渲染时执行。
     const [start,setStart] = useState(() => startTime / 24 * 100 );
     const [end,setEnd] = useState(() => endTime / 24 * 100);
 
+    if(prevStartHours.current !== startTime){
+        setStart( (startTime / 24) * 100 );
+        prevStartHours.current = startTime;
+    }
+    if(prevEndHours.current !== endTime){
+        setEnd( endTime / 24 * 100 );
+        prevEndHours.current = endTime;
+    }
     // 初始和结束位置 不能超过 100%，也不能小于 0%;
     const startPercent = useMemo(() => {
         if(start > 100){
@@ -113,10 +123,10 @@ const Slider = memo(function (props){
         endRef.current.addEventListener('touchstart',handleEndBegin,false);
         endRef.current.addEventListener('touchmove',handleEndMove,false);
         return () => {
-            startRef.current.removeEventListener('touchstart',handleStartBegin,false);
-            startRef.current.removeEventListener('touchmove',handleStartMove,false);
-            endRef.current.removeEventListener('touchstart',handleEndBegin,false);
-            endRef.current.removeEventListener('touchmove',handleEndMove,false);
+            startRef.current.removeEventListener('touchstart',handleStartBegin);
+            startRef.current.removeEventListener('touchmove',handleStartMove);
+            endRef.current.removeEventListener('touchstart',handleEndBegin);
+            endRef.current.removeEventListener('touchmove',handleEndMove);
         }
     });
 

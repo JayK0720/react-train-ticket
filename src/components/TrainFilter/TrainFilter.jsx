@@ -1,4 +1,13 @@
-import React ,{memo,useRef,useEffect,useState,useCallback} from 'react'
+import React ,
+{
+    memo,
+    useRef,
+    useEffect,
+    useState,
+    useCallback,
+    useMemo
+}
+from 'react'
 import './TrainFilter.scss';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -33,7 +42,7 @@ OptionItem.propTypes = {
     value:PropTypes.string
 }
 
-const Options = memo(function ({checkedMap,update,title,options}){
+function Options({checkedMap,update,title,options}){
     // 点击切换事件，传入当前点击选项的value
     const toggle = useCallback((value) => {
         let newCheckedMap = {...checkedMap};
@@ -54,7 +63,7 @@ const Options = memo(function ({checkedMap,update,title,options}){
             </ul>
         </div>
     )
-})
+}
 Options.propTypes = {
     checkedMap:PropTypes.object,
     update:PropTypes.func,
@@ -83,15 +92,17 @@ function TrainFilter(props){
             scrollRef.current = new BScroll(scrollWrapper.current,{
                 click:true,
                 probeType:3,
+                scrollY:true
             })
         }else{
             scrollRef.current.refresh();
         }
     });
+    console.log("checkedTrainTypes:",checkedTrainTypes);
     // 设置一个本地缓存的数据存储选中的数据，初始数据来源于store
     const [localCheckedTrainTypes,setLocalCheckedTrainTypes] = useState(() => {
         return {...checkedTrainTypes};
-    }) ;
+    });
     const [localCheckedTicketTypes,setLocalCheckedTicketTypes] = useState(() => {
         return {...checkedTicketTypes};
     });
@@ -101,6 +112,7 @@ function TrainFilter(props){
     const [localCheckedArriveStation,setLocalCheckedArriveStation] = useState(() => {
         return {...checkedArriveStation};
     });
+    console.log("localCheckedTrainTypes:",localCheckedTrainTypes);
     // 被选中的数据 使用本地的数据,将更新 座位类型 和 车票类型的函数 抽象为统一的update函数,传递到子组件,再子组件的 点击时间中 更新
     const optionGroup = [
         {
@@ -134,16 +146,49 @@ function TrainFilter(props){
     const [localArriveTimeStart,setLocalArriveTimeStart] = useState(arriveTimeStart);
     const [localArriveTimeEnd,setLocalArriveTimeEnd] = useState(arriveTimeEnd);
 
+    // 点击确认按钮,将 本地缓存的数据同步到 redux;
     const confirm = () => {
-        setCheckedDepartStation(localCheckedDepartStation);
-        setCheckedArriveStation(localCheckedArriveStation);
-        setCheckedTicketTypes(localCheckedTicketTypes);
-        setCheckedTrainTypes(localCheckedTrainTypes);
         setDepartTimeStart(localDepartTimeStart);
         setDepartTimeEnd(localDepartTimeEnd);
         setArriveTimeStart(localArriveTimeStart);
         setArriveTimeEnd(localArriveTimeEnd);
+        setCheckedArriveStation(localCheckedArriveStation);
+        setCheckedDepartStation(localCheckedDepartStation);
+        setCheckedTrainTypes(localCheckedTrainTypes);
+        setCheckedTicketTypes(localCheckedTicketTypes);
         toggleFilterVisible();
+    }
+    //  当筛选了不同的条件选项后,重置按钮才是生效的,否则重置按钮无法点击，样式上也有所区别
+    const isResetDisabled = useMemo(() => {
+        return Object.keys(localCheckedTrainTypes).length === 0
+            && Object.keys(localCheckedTicketTypes).length === 0
+            && Object.keys(localCheckedArriveStation).length === 0
+            && Object.keys(localCheckedDepartStation).length === 0
+            && localDepartTimeStart === 0
+            && localDepartTimeEnd === 24
+            && localArriveTimeStart === 0
+            && localArriveTimeEnd === 24;
+    },[
+        localCheckedTrainTypes,
+        localCheckedTicketTypes,
+        localCheckedArriveStation,
+        localCheckedDepartStation,
+        localDepartTimeStart,
+        localDepartTimeEnd,
+        localArriveTimeStart,
+        localArriveTimeEnd
+    ]);
+    // 点击重置按钮 将所有的筛选项设置为默认值(注意此时要修改本地缓存的数据,因为还没有提交到redux);
+    const reset = () => {
+        if(isResetDisabled) return;
+        setLocalArriveTimeStart(0);
+        setLocalArriveTimeEnd(24);
+        setLocalDepartTimeStart(0);
+        setLocalDepartTimeEnd(24);
+        setLocalCheckedTrainTypes({});
+        setLocalCheckedTicketTypes({});
+        setLocalCheckedDepartStation({});
+        setLocalCheckedArriveStation({});
     }
 
     return (
@@ -152,7 +197,10 @@ function TrainFilter(props){
         >
             <div className="filter-content">
                 <div className="title">
-                    <span className={'reset'}>重置</span>
+                    <span
+                        className={['reset',isResetDisabled ? 'disabled' : ""].join(" ")}
+                        onClick={reset}
+                    >重置</span>
                     <span
                         className="confirm"
                         onClick={confirm}
@@ -166,14 +214,14 @@ function TrainFilter(props){
                     >
                         {optionGroup.map((option,index) => <Options key={index} {...option}/>)}
                         <Slider
-                            title={'出发时间'}
+                            title='出发时间'
                             startTime={localDepartTimeStart}
                             endTime={localDepartTimeEnd}
                             onStartChanged={setLocalDepartTimeStart}
                             onEndChanged={setLocalDepartTimeEnd}
                         />
                         <Slider
-                            title={'到达时间'}
+                            title='到达时间'
                             startTime={localArriveTimeStart}
                             endTime={localArriveTimeEnd}
                             onStartChanged={setLocalArriveTimeStart}

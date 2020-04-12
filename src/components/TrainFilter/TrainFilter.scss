@@ -25,7 +25,10 @@
         background-color:#fff;
         font-size:14px;
         .reset{
-            color:#777;
+            color:#4794e1;
+            &.disabled{
+                color:#777;
+            }
         }
         .confirm{
             color:#4794e1;
