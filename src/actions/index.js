@@ -19,9 +19,9 @@ import {
     SET_TRAIN_TYPES,
     SET_CHECKED_TRAIN_TYPES,
     SET_DEPART_STATION,
-    SET_CHECKED_DEPART_STATION,
     SET_ARRIVE_STATION,
     SET_CHECKED_ARRIVE_STATION,
+    SET_CHECKED_DEPART_STATION,
     SET_DEPART_TIME_START,
     SET_DEPART_TIME_END,
     SET_ARRIVE_TIME_START,
@@ -30,20 +30,22 @@ import {
     SHOW_PRICE,
     SHOW_COUNT,
     TOGGLE_TICKET_INFO,
-    SET_TRAIN_LIST
+    SET_TRAIN_LIST,
+    SET_TRAIN_DEPART,
+    SET_TRAIN_ARRIVE
 } from '../actionTypes';
 // 出发城市
 export function setFrom(from){
     return {
         type:SET_FROM,
-        playload:from
+        payload:from
     }
 }
 // 终点城市
 export function setTo(to){
     return {
         type:SET_TO,
-        playload:to
+        payload:to
     }
 }
 // 显示城市选择页面
@@ -65,7 +67,7 @@ export function toggleHighSpeed(){
         const {highSpeed} = getState();
         return dispatch({
             type:TOGGLE_HIGH_SPEED,
-            playload:!highSpeed,
+            payload:!highSpeed,
         })
     }
 }
@@ -73,14 +75,14 @@ export function toggleHighSpeed(){
 export function setIsLoadingCityData(isLoadingCityData){
     return {
         type:IS_LOADING_CITY_DATA,
-        playload:isLoadingCityData
+        payload:isLoadingCityData
     }
 }
 // 获取城市列表数据
 export function setCityData(cities){
     return {
         type:SET_CITY_DATA,
-        playload:cities
+        payload:cities
     }
 }
 // 异步获取城市列表数据
@@ -124,7 +126,7 @@ export function fetchCityData(){
 export function setStationDirection(direction){
     return {
         type : SET_STATION_DIRECTION,
-        playload:direction
+        payload:direction
     }
 }
 /*
@@ -159,7 +161,7 @@ export function hideDateSelector(){
 export function setDepartDate(date){
     return {
         type:SET_DEPART_DATE,
-        playload:date
+        payload:date
     }
 }
 
@@ -169,7 +171,7 @@ export function setNextDay(){
         const {departDate} = getState();
         dispatch({
             type:SET_DEPART_DATE,
-            playload:departDate + 86400 * 1000
+            payload:departDate + 86400 * 1000
         })
     }
 }
@@ -179,7 +181,7 @@ export function setPrevDay(){
         const {departDate} = getState();
         dispatch({
             type:SET_DEPART_DATE,
-            playload:departDate - 86400 * 1000
+            payload:departDate - 86400 * 1000
         })
     }
 }
@@ -191,12 +193,12 @@ export function toggleOrderType(){
         if(orderType === ORDER_DEPART){
             dispatch({
                 type:SET_ORDER_TYPE,
-                playload:ORDER_DURATION
+                payload:ORDER_DURATION
             })
         }else{
             dispatch({
                 type:SET_ORDER_TYPE,
-                playload:ORDER_DEPART
+                payload:ORDER_DEPART
             })
         }
     }
@@ -205,79 +207,79 @@ export function toggleOrderType(){
 export function setTicketTypes(ticketTypes){
     return {
         type:SET_TICKET_TYPES,
-        playload:ticketTypes
+        payload:ticketTypes
     }
 }
 // 选择的车票类型
 export function setCheckedTicketTypes(checkedTicketTypes){
     return {
         type:SET_CHECKED_TICKET_TYPES,
-        playload:checkedTicketTypes
+        payload:checkedTicketTypes
     }
 }
 // 车票类型
 export function setTrainTypes(trainTypes){
     return {
         type:SET_TRAIN_TYPES,
-        playload:trainTypes
+        payload:trainTypes
     }
 }
 export function setDepartStation(departStation){
     return {
         type:SET_DEPART_STATION,
-        playload:departStation
+        payload:departStation
     }
 }
 export function setArriveStation(arriveStation){
     return {
         type:SET_ARRIVE_STATION,
-        playload:arriveStation
+        payload:arriveStation
     }
 }
 export function setCheckedDepartStation(checkedDepartStation){
     return{
         type:SET_CHECKED_DEPART_STATION,
-        playload:checkedDepartStation
+        payload:checkedDepartStation
     }
 }
 export function setCheckedTrainTypes(checkedTrainTypes){
     return {
         type:SET_CHECKED_TRAIN_TYPES,
-        playload:checkedTrainTypes
+        payload:checkedTrainTypes
     }
 }
 
 export function setCheckedArriveStation(checkedArriveStation){
     return{
         type:SET_CHECKED_ARRIVE_STATION,
-        playload:checkedArriveStation
+        payload:checkedArriveStation
     }
 }
 
 export function setDepartTimeStart(departTimeStart){
     return {
         type:SET_DEPART_TIME_START,
-        playload:departTimeStart
+        payload:departTimeStart
     }
 }
 
 export function setDepartTimeEnd(departTimeEnd){
     return {
         type:SET_DEPART_TIME_END,
-        playload:departTimeEnd
+        payload:departTimeEnd
     }
 }
 
 export function setArriveTimeStart(arriveTimeStart){
     return {
         type:SET_ARRIVE_TIME_START,
-        playload:arriveTimeStart
+        payload:arriveTimeStart
     }
 }
 export function setArriveTimeEnd(arriveTimeEnd){
     return {
         type:SET_ARRIVE_TIME_END,
-        playload:arriveTimeEnd
+        payload:arriveTimeEnd
     }
 }
 
@@ -286,7 +288,7 @@ export function toggleFilterVisible(){
         const {isFilterVisible} = getState();
         dispatch({
             type:TOGGLE_FILTER_VISIBLE,
-            playload:!isFilterVisible
+            payload:!isFilterVisible
         })
     }
 }
@@ -297,12 +299,12 @@ export function toggleTicketInfo(){
         if(ticketInfo === SHOW_PRICE){
             dispatch({
                 type:TOGGLE_TICKET_INFO,
-                playload:SHOW_COUNT
+                payload:SHOW_COUNT
             })
         }else{
             dispatch({
                 type:TOGGLE_TICKET_INFO,
-                playload:SHOW_PRICE
+                payload:SHOW_PRICE
             })
         }
     }
@@ -311,6 +313,26 @@ export function toggleTicketInfo(){
 export function setTrainList(trainList){
     return {
         type:SET_TRAIN_LIST,
-        playload:trainList
+        payload:trainList
     }
 }
+
+
+export function setTrainDepart(trainDepart){
+    return {
+        type:SET_TRAIN_DEPART,
+        payload:trainDepart
+    }
+}
+
+export function setTrainArrive(trainArrive){
+    return{
+        type:SET_TRAIN_ARRIVE,
+        payload:trainArrive
+    }
+}
+
+
+
+
+

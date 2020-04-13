@@ -17,7 +17,7 @@ function App(){
                     <Route path={'/query'}>
                         <Query/>
                     </Route>
-                    <Route path={'/ticket/:train'}>
+                    <Route path={'/ticket'}>
                         <Ticket/>
                     </Route>
                 </Switch>

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {NavLink} from 'react-router-dom';
 
 function TrainList(props){
-    const {list,ticketInfo} = props;
+    const {list,ticketInfo,departDate} = props;
     const showTicketCount = (count) => {
         if(count >= 10){
             return <span className={'has-ticket'}>有</span>
@@ -23,10 +23,9 @@ function TrainList(props){
     return (
         <ul className={'train-list'}>
             {list.length > 0 && list.map((train,index) => {
-                const info = JSON.stringify(train);
                 return (
                     <NavLink 
-                        to={'/ticket/info'} 
+                        to={`/ticket?date=${departDate}&trainNumber=${train.trainNumber}&departStation=${train.dStation}&arriveStation=${train.aStation}`} 
                         className={'ticket-link'} 
                         key={index}
 
@@ -89,7 +88,8 @@ TrainList.propTypes = {
 }
 const mapStateToProps = state => {
     return {
-        ticketInfo:state.ticketInfo
+        ticketInfo:state.ticketInfo,
+        departDate:state.departDate
     }
 }
 export default connect(

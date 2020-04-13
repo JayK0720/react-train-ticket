@@ -26,7 +26,9 @@ import {
     checkedTicketTypes,
     checkedTrainTypes,
     checkedDepartStation,
-    checkedArriveStation
+    checkedArriveStation,
+    trainDepart,
+    trainArrive
 }
 from '../reducer/index.js'
 
@@ -56,7 +58,9 @@ const store =  createStore(
         checkedTicketTypes,
         checkedTrainTypes,
         checkedDepartStation,
-        checkedArriveStation
+        checkedArriveStation,
+        trainArrive,
+        trainDepart
     }),
     compose(
         applyMiddleware(

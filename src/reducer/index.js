@@ -27,24 +27,26 @@ import {
     TOGGLE_FILTER_VISIBLE,
     SHOW_COUNT,
     TOGGLE_TICKET_INFO,
-    SET_TRAIN_LIST
+    SET_TRAIN_LIST,
+    SET_TRAIN_ARRIVE,
+    SET_TRAIN_DEPART
 } from '../actionTypes';
 import dateUtil from '../common/js/date';
 
 export function from(state = "北京",action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_FROM:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 export function to(state = "上海",action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_TO:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -63,20 +65,20 @@ export function citySelector(state = false,action){
 }
 
 export function isLoadingCityData(state=false,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case IS_LOADING_CITY_DATA:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 
 export function cityData(state={},action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_CITY_DATA:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -84,10 +86,10 @@ export function cityData(state={},action){
 
 
 export function cityDirection(state='left',action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_STATION_DIRECTION:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -107,22 +109,22 @@ export function dateSelector(state= false,action){
 // 出发日期reducer, 默认为当前的时间戳
 const initialDate = dateUtil.getTodayUnix(Date.now());
 export function departDate(state = initialDate,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_DEPART_DATE:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 
 export function highSpeed(state = false,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case TOGGLE_HIGH_SPEED:
-            return playload;
+            return payload;
         case SET_CHECKED_TRAIN_TYPES:
-            if((playload[1] === true) && (playload[5] === true) ){
+            if((payload[1] === true) && (payload[5] === true) ){
                 return true;
             }else{
                 return false;
@@ -133,63 +135,63 @@ export function highSpeed(state = false,action){
 }
 
 export function orderType(state = ORDER_DEPART ,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_ORDER_TYPE:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 是否显示火车筛选浮层
 export function isFilterVisible(state=false,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case TOGGLE_FILTER_VISIBLE:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 火车车票类型
 export function ticketTypes(state = [],action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_TICKET_TYPES:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 火车车次类型
 export function trainTypes(state = [],action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_TRAIN_TYPES:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 选中的火车车票类型
 export function checkedTicketTypes(state={},action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_CHECKED_TICKET_TYPES:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 选中的火车车次类型
 export function checkedTrainTypes(state={},action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_CHECKED_TRAIN_TYPES:
-            return playload;
+            return payload;
             // 如果点击了切换只看高铁动车,则高铁和动车选项也要被选中
         case TOGGLE_HIGH_SPEED:
-            const highSpeed = playload;
+            const highSpeed = payload;
             const newCheckedTrainTypes = Object.assign({},state);
             if(highSpeed){
                 newCheckedTrainTypes[1] = true;
@@ -206,60 +208,60 @@ export function checkedTrainTypes(state={},action){
 }
 // 选中的火车出发站点
 export function checkedDepartStation(state={},action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_CHECKED_DEPART_STATION:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 选中的火车到达站点
 export function checkedArriveStation(state={},action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_CHECKED_ARRIVE_STATION:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 切换 火车座位 数量信息 和 价格信息
 export function ticketInfo(state = SHOW_COUNT,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case TOGGLE_TICKET_INFO:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 请求到的火车车次数据列表
 export function trainList(state = [],action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_TRAIN_LIST:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 火车所有的到达车站站点
 export function arriveStation(state =[],action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_ARRIVE_STATION:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 火车所有的出发车站站点
 export function departStation(state=[],action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_DEPART_STATION:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -267,10 +269,10 @@ export function departStation(state=[],action){
 
 // 火车出发开始时间
 export function departTimeStart(state= 0,action){
-    const {playload,type} = action;
+    const {payload,type} = action;
     switch(type){
         case SET_DEPART_TIME_START:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -278,10 +280,10 @@ export function departTimeStart(state= 0,action){
 
 // 火车出发截止日期
 export function departTimeEnd(state= 24,action){
-    const {playload,type} = action;
+    const {payload,type} = action;
     switch(type){
         case SET_DEPART_TIME_END:
-            return playload;
+            return payload;
         default:
             return state;
     }
@@ -289,21 +291,44 @@ export function departTimeEnd(state= 24,action){
 
 // 到站初始日期
 export function arriveTimeStart(state= 0,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_ARRIVE_TIME_START:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
 // 到站截止日期
 export function arriveTimeEnd(state= 24,action){
-    const {type,playload} = action;
+    const {type,payload} = action;
     switch(type){
         case SET_ARRIVE_TIME_END:
-            return playload;
+            return payload;
         default:
             return state;
     }
 }
+
+
+export function trainDepart(state = '',action){
+    const {type,payload} = action;
+    switch(type){
+        case SET_TRAIN_DEPART:
+            return payload;
+        default:
+            return state;
+    }
+}
+
+export function trainArrive(state = '',action){
+    const {type,payload} = action;
+    switch(type){
+        case SET_TRAIN_ARRIVE:
+            return payload;
+        default:
+            return state;
+    }
+}
+
+
