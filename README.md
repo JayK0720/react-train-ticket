@@ -139,7 +139,17 @@ function paddingLeftZero(str){
     
     变更.current属性不会引发组件重新渲染。
     
-    
+# lazy和Suspense组件
+	
+	React 16.6 added a <Suspense> component that lets you 'wait' for some code to load and declaratively
+	a loading state (like a spinner) while we're waiting;
+```jsx
+const ProfilePage = React.lazy(() => import('./ProfilePage'));	// lazy-loaded
+
+<Suspense fallback={<Spinner/>}>
+	<ProfilePage/>
+</Suspense>
+```
     
     
     

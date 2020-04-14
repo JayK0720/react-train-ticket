@@ -1,11 +1,14 @@
-import React ,{useCallback,useEffect,useState} from 'react';
-import {useLocation,useParams} from 'react-router-dom';
+import React ,{useCallback,useEffect,useState,lazy,Suspense,useRef} from 'react';
+import {useLocation} from 'react-router-dom';
 import './Ticket.scss';
 import Header from '../Header/Header.jsx';
 import CalendarNav from '../CalendarNav/CalendarNav.jsx';
 import useNav from '../../common/js/useNav';
 import {connect} from 'react-redux';
 import {setNextDay,setPrevDay} from '../../actions';
+import Loading from '../Loading/Loading.jsx';
+// 异步加载组件
+let Schedule = lazy(() => import('../Schedule/Schedule.jsx'));
 
 function util(str){
 	const obj = {};
@@ -22,12 +25,13 @@ function util(str){
 	return obj;
 }
 
+
 function Ticket(props){
 	const {setNextDay,setPrevDay,departDate} = props;
 	const location = useLocation();
-
+	const scheduleRef = useRef();
 	const searchObj = util(location.search);
-	console.log(searchObj);
+
 	const onBack = useCallback(() => {
 		window.history.back();		
 	},[]);
@@ -46,8 +50,7 @@ function Ticket(props){
     	.then(({result}) => {
     		const {detail,candidates} = result;
     		setDetail(detail);
-    		console.log(detail);
-    	})
+    	});
     });
 	return (
 		<div className={'ticket-wrapper'}>
@@ -67,21 +70,27 @@ function Ticket(props){
 				<div className='ticket-detail'>
 					<div className='train-depart'>
 						<p className='station-text depart-station'>{searchObj.departStation}</p>
-						<p className='depart-time'>{detail.departTimeStr}</p>
-						<p className='depart-date'></p>
+						<p className='depart-time'>{searchObj.dTime}</p>
 					</div>
 					<div className='train-info'>
 						<p className='trainNumber'>{searchObj.trainNumber}</p>
-						<p className='train-station-list'>时刻表</p>
-						<p className='duration'>耗时{detail.durationStr}</p>
+						<p 
+							className='train-station-list' 
+							onClick={() => scheduleRef.current.showSchedule()}
+						>时刻表</p>
+						<p className='duration'>耗时{searchObj.time}</p>
 					</div>
 					<div className='train-arrive'>
 						<p className='station-text arrive-station'>{searchObj.arriveStation}</p>
-						<p className='arrive-time'>{detail.arriveTimeStr}</p>
-						<p className='arrive-date'></p>
+						<p className='arrive-time'>{searchObj.aTime}</p>
 					</div>
 				</div>
 			</div>
+			<Suspense fallback={<Loading/>}>
+				<Schedule
+					ref={scheduleRef}
+				/>
+			</Suspense>
 		</div>
 	)
 }

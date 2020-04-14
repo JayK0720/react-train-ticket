@@ -98,7 +98,6 @@ function TrainFilter(props){
             scrollRef.current.refresh();
         }
     });
-    console.log("checkedTrainTypes:",checkedTrainTypes);
     // 设置一个本地缓存的数据存储选中的数据，初始数据来源于store
     const [localCheckedTrainTypes,setLocalCheckedTrainTypes] = useState(() => {
         return {...checkedTrainTypes};
@@ -112,7 +111,6 @@ function TrainFilter(props){
     const [localCheckedArriveStation,setLocalCheckedArriveStation] = useState(() => {
         return {...checkedArriveStation};
     });
-    console.log("localCheckedTrainTypes:",localCheckedTrainTypes);
     // 被选中的数据 使用本地的数据,将更新 座位类型 和 车票类型的函数 抽象为统一的update函数,传递到子组件,再子组件的 点击时间中 更新
     const optionGroup = [
         {
@@ -190,7 +188,6 @@ function TrainFilter(props){
         setLocalCheckedDepartStation({});
         setLocalCheckedArriveStation({});
     }
-
     return (
         <div
             className={['filter-wrapper',!show ? 'disabled' : ""].join(" ")}

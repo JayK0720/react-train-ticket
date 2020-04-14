@@ -23,9 +23,10 @@ function TrainList(props){
     return (
         <ul className={'train-list'}>
             {list.length > 0 && list.map((train,index) => {
+                console.log(train);
                 return (
                     <NavLink 
-                        to={`/ticket?date=${departDate}&trainNumber=${train.trainNumber}&departStation=${train.dStation}&arriveStation=${train.aStation}`} 
+                        to={`/ticket?date=${departDate}&trainNumber=${train.trainNumber}&departStation=${train.dStation}&arriveStation=${train.aStation}&dTime=${train.dTime}&aTime=${train.aTime}&time=${train.time}`}
                         className={'ticket-link'} 
                         key={index}
 
