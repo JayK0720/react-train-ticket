@@ -28,7 +28,8 @@ import {
     checkedDepartStation,
     checkedArriveStation,
     trainDepart,
-    trainArrive
+    trainArrive,
+    scheduleVisible
 }
 from '../reducer/index.js'
 
@@ -60,7 +61,8 @@ const store =  createStore(
         checkedDepartStation,
         checkedArriveStation,
         trainArrive,
-        trainDepart
+        trainDepart,
+        scheduleVisible
     }),
     compose(
         applyMiddleware(

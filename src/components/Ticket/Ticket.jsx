@@ -1,11 +1,11 @@
-import React ,{useCallback,useEffect,useState,lazy,Suspense,useRef} from 'react';
+import React ,{useCallback,useEffect,useState,lazy,Suspense} from 'react';
 import {useLocation} from 'react-router-dom';
 import './Ticket.scss';
 import Header from '../Header/Header.jsx';
 import CalendarNav from '../CalendarNav/CalendarNav.jsx';
 import useNav from '../../common/js/useNav';
 import {connect} from 'react-redux';
-import {setNextDay,setPrevDay} from '../../actions';
+import {setNextDay,setPrevDay,setTrainArrive,setTrainDepart,toggleScheduleVisible} from '../../actions';
 import Loading from '../Loading/Loading.jsx';
 // 异步加载组件
 let Schedule = lazy(() => import('../Schedule/Schedule.jsx'));
@@ -25,15 +25,21 @@ function util(str){
 	return obj;
 }
 
-
 function Ticket(props){
-	const {setNextDay,setPrevDay,departDate} = props;
+	const {
+		setNextDay,
+		setPrevDay,
+		departDate,
+		setTrainDepart,
+		setTrainArrive,
+		scheduleVisible,
+		toggleScheduleVisible
+	} = props;
 	const location = useLocation();
-	const scheduleRef = useRef();
 	const searchObj = util(location.search);
 
 	const onBack = useCallback(() => {
-		window.history.back();		
+		window.history.back();
 	},[]);
 
 	const [detail,setDetail] = useState({});
@@ -52,6 +58,11 @@ function Ticket(props){
     		setDetail(detail);
     	});
     });
+    // 设置当前行程的出发车站和达到车站
+    useEffect(() => {
+    	setTrainArrive(searchObj.arriveStation);
+    	setTrainDepart(searchObj.departStation);
+    },[setTrainArrive,setTrainDepart,searchObj.arriveStation,searchObj.departStation]);
 	return (
 		<div className={'ticket-wrapper'}>
 			<Header
@@ -74,9 +85,9 @@ function Ticket(props){
 					</div>
 					<div className='train-info'>
 						<p className='trainNumber'>{searchObj.trainNumber}</p>
-						<p 
-							className='train-station-list' 
-							onClick={() => scheduleRef.current.showSchedule()}
+						<p
+							className='train-station-list'
+							onClick={() => {toggleScheduleVisible()}}
 						>时刻表</p>
 						<p className='duration'>耗时{searchObj.time}</p>
 					</div>
@@ -87,22 +98,24 @@ function Ticket(props){
 				</div>
 			</div>
 			<Suspense fallback={<Loading/>}>
-				<Schedule
-					ref={scheduleRef}
-				/>
+				{scheduleVisible && <Schedule/>}
 			</Suspense>
 		</div>
 	)
 }
 const mapStateToProps = state => {
 	return {
-			departDate:state.departDate
+		departDate:state.departDate,
+		scheduleVisible:state.scheduleVisible
 	};
 }
 export default connect(
 	mapStateToProps,
 	{
 		setNextDay,
-		setPrevDay
+		setPrevDay,
+		setTrainDepart,
+		setTrainArrive,
+		toggleScheduleVisible
 	}
 )(Ticket);

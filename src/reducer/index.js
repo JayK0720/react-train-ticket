@@ -29,7 +29,8 @@ import {
     TOGGLE_TICKET_INFO,
     SET_TRAIN_LIST,
     SET_TRAIN_ARRIVE,
-    SET_TRAIN_DEPART
+    SET_TRAIN_DEPART,
+    TOGGLE_SCHEDULE_VISIBLE
 } from '../actionTypes';
 import dateUtil from '../common/js/date';
 
@@ -331,4 +332,12 @@ export function trainArrive(state = '',action){
     }
 }
 
-
+export function scheduleVisible(state= false,action){
+    const {type,payload} = action;
+    switch(type){
+        case TOGGLE_SCHEDULE_VISIBLE:
+            return payload;
+        default:
+            return state;
+    }
+}

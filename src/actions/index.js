@@ -32,7 +32,8 @@ import {
     TOGGLE_TICKET_INFO,
     SET_TRAIN_LIST,
     SET_TRAIN_DEPART,
-    SET_TRAIN_ARRIVE
+    SET_TRAIN_ARRIVE,
+    TOGGLE_SCHEDULE_VISIBLE
 } from '../actionTypes';
 // 出发城市
 export function setFrom(from){
@@ -317,21 +318,28 @@ export function setTrainList(trainList){
     }
 }
 
-
 export function setTrainDepart(trainDepart){
     return {
         type:SET_TRAIN_DEPART,
         payload:trainDepart
     }
 }
-
 export function setTrainArrive(trainArrive){
     return{
         type:SET_TRAIN_ARRIVE,
         payload:trainArrive
     }
 }
-
+// 切换schedule
+export function toggleScheduleVisible(){
+    return (dispatch,getState) => {
+        const {scheduleVisible} = getState();
+        return dispatch({
+            type:TOGGLE_SCHEDULE_VISIBLE,
+            payload:!scheduleVisible
+        })
+    }
+}
 
 
 

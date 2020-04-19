@@ -1,27 +1,95 @@
+@import '../../common/css/mixin.scss';
 .mask{
 	position:fixed;
 	width:100%;
 	top:0;
 	bottom:0;
-	background-color:rgba(0,0,0,.35);
+	background-color:rgba(0,0,0,.45);
 	z-index:100;
 	&.hide{
 		display:none;
 	}
 	.schedule-wrapper{
 		position:absolute;
-		left:0;
-		right:0;
-		top:0;
-		bottom:0;
-		width:300px;
-		height:300px;
-		margin:auto;
+		left:36px;
+		right:36px;
+		top:50%;
+		min-height:300px;
+		transform:translateY(-50%);
+		overflow-y:auto;
 		background-color:#fff;
 		border-radius:6px;
 		@media screen and (max-width:320px){
 			width:260px;
 			height:250px;
 		}
+		.title{
+			padding:12px 0;
+			font-weight:bold;
+			text-align:center;
+			line-height:28px;
+			font-size:14px;
+		}
+		.head{
+			padding-left:10px;
+			display:flex;
+			justify-content:space-between;
+			height:30px;
+			line-height:30px;
+			@include border-bottom-1px(#5295f9);
+			color:#3c3c3c;
+			.station{
+				flex:5;
+				text-align:left;
+			}
+			.arrive, .depart ,.stay{
+				flex:4;
+				text-align:center;
+			}
+		}
+		.schedule-row{
+			height:50px;
+			line-height:50px;
+			@include border-bottom-1px(#ccc);
+			&:last-child{
+				@include border-none();
+			}
+			.icon{
+				margin:0 5px;
+				float:left;
+				transform:translateY(17px);
+				border-radius:50%;
+				font-size:10px;
+				width:16px;
+				height:16px;
+				text-align:center;
+				line-height:16px;
+				border:1px solid #eee;
+				color:#ccc;
+				&.icon-red{
+					color:#fff;
+					background-color:#f00;
+				}
+			}
+			.row{
+				font-size:14px;
+				display:flex;
+				color:#333;
+				.current-station,.arrive-time,.depart-time,.stay-time{
+					flex:1;
+					text-align:center;
+					&.red{
+						color:#f00;
+					}
+				}
+				.current-station{
+					text-align:left;
+				}
+				&.grey{
+					color:#ccc;
+				}
+			}
+		}
+
 	}
 }
