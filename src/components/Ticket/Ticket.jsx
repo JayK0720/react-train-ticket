@@ -7,6 +7,7 @@ import useNav from '../../common/js/useNav';
 import {connect} from 'react-redux';
 import {setNextDay,setPrevDay,setTrainArrive,setTrainDepart,toggleScheduleVisible} from '../../actions';
 import Loading from '../Loading/Loading.jsx';
+import Candidate from '../Candidate/Candidate.jsx';
 // 异步加载组件
 let Schedule = lazy(() => import('../Schedule/Schedule.jsx'));
 
@@ -42,7 +43,8 @@ function Ticket(props){
 		window.history.back();
 	},[]);
 
-	const [detail,setDetail] = useState({});
+	const [candidates,setCandidates] = useState([]);
+
 	const {
 		isNextDisabled,
         isPrevDisabled,
@@ -54,10 +56,10 @@ function Ticket(props){
     	fetch(`http://121.43.126.106:5000/api/ticket-server/detail${location.search}`)
     	.then(response => response.json())
     	.then(({result}) => {
-    		const {detail,candidates} = result;
-    		setDetail(detail);
+    		const {candidates} = result;
+    		setCandidates(candidates);
     	});
-    });
+    },[]);
     // 设置当前行程的出发车站和达到车站
     useEffect(() => {
     	setTrainArrive(searchObj.arriveStation);
@@ -96,6 +98,9 @@ function Ticket(props){
 						<p className='arrive-time'>{searchObj.aTime}</p>
 					</div>
 				</div>
+				<Candidate
+					candidates={candidates}
+				/>
 			</div>
 			<Suspense fallback={<Loading/>}>
 				{scheduleVisible && <Schedule/>}
